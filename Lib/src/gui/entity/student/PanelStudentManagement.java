@@ -1,0 +1,176 @@
+package gui.entity.student;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
+@SuppressWarnings("serial")
+public class PanelStudentManagement extends JPanel {
+	/** (Object Field / Instance Variable)
+	 * The Add Dialog form that this frame opens everytime add button is clicked.
+	 */
+	//private DialogCreateStudent addStudentDialog;
+
+	/** (Object Field / Instance Variable)
+	 * The Add Dialog form that this frame opens everytime add button is clicked.
+	 */
+	//private DialogUpdateStudent updateStudentDialog;
+	
+	/** (Object Field / Instance Variable)
+	 * The Student Table of this frame.
+	 */
+	private JTable jtblStudents;
+	
+
+	/** (Object Field / Instance Variable)
+	 * The TableModel that jtblStudents uses to show data.
+	 */
+	//protected PanelStudentManagement studentTableModel;
+
+	/**
+	 * Create the frame. All initialization is done when the object is constructed.
+	 */
+
+	public PanelStudentManagement() {
+		setBackground(new Color(255, 255, 255));
+		setBorder(new EmptyBorder(10, 10, 10, 10));
+		setPreferredSize(new Dimension(625, 400));
+		setMinimumSize(new Dimension(625, 400));
+		
+		/* jpnlHeader - header labels and buttons placed here. */
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		JPanel jpnlHeader = new JPanel();
+		jpnlHeader.setBackground(new Color(255, 255, 255));
+		jpnlHeader.setAlignmentX(0.0f);
+		jpnlHeader.setAlignmentY(0.0f);
+		add(jpnlHeader);
+		jpnlHeader.setLayout(new BoxLayout(jpnlHeader, BoxLayout.X_AXIS));
+		/* END OF jpnlHeader */
+		
+		/* jlblHeader - header label */
+		JLabel jlblHeader = new JLabel("Student Management Panel");
+		jlblHeader.setBackground(new Color(255, 255, 255));
+		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
+		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
+		jlblHeader.setAlignmentY(0.0f);
+		jpnlHeader.add(jlblHeader);
+		/* END OF jlblHeader */
+		
+		/* jpnlButtons - button actions panel */
+		JPanel jpnlButtons = new JPanel();
+		jpnlButtons.setBackground(new Color(255, 255, 255));
+		jpnlButtons.setAlignmentX(0.0f);
+		jpnlButtons.setAlignmentY(0.0f);
+		jpnlButtons.setMaximumSize(new Dimension(32767, 75));
+		FlowLayout flowLayout = (FlowLayout) jpnlButtons.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		jpnlHeader.add(jpnlButtons);
+		/* END OF jpnlButtons */
+		
+		/* jbtnAdd - shows addStudentDialog when clicked */
+		JButton jbtnAdd = new JButton("Add");
+		jbtnAdd.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jbtnAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*Set the Action here. Remove this after finishing the GUI
+				addStudentDialog.refreshSubjectComboBox();
+				addStudentDialog.setVisible(true);
+				*/
+			}
+		});
+		jpnlButtons.add(jbtnAdd);
+		/* END OF jbtnAdd */
+		
+		/* jbtnUpdate - updates a row in the JTable with a Dialog */
+		JButton jbtnUpdate = new JButton("Update");
+		jbtnUpdate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jbtnUpdate.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int rowIndex = jtblStudents.getSelectedRow();
+				
+				if(rowIndex == -1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"Please select a student first before updating.",
+							"Warning",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				/* This update will be implemented after the GUI.
+				String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
+				Student student = studentRepository.getByStudentNumber(studentNumber);
+			
+				updateStudentDialog.initializeDialog(student);
+				updateStudentDialog.setVisible(true);
+				 */
+			}
+		});
+		jpnlButtons.add(jbtnUpdate);
+		/* END OF jbtnUpdate */
+		
+		/* jbtnDelete - deletes a Student depending on what's selected in the JTable */
+		JButton jbtnDelete = new JButton("Delete");
+		jbtnDelete.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jbtnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int rowIndex = jtblStudents.getSelectedRow();
+				
+				if(rowIndex == -1) {
+					JOptionPane.showMessageDialog(
+							null,
+							"Please select a student first before deleting.",
+							"Warning",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				/* This update will be implemented after the GUI.
+				if(JOptionPane.showConfirmDialog(null, "Are you sure?") == JOptionPane.YES_OPTION) {
+					String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
+					studentRepository.deleteByStudentNumber(studentNumber);
+					studentTableModel.refresh();
+				} 
+				*/
+			}
+		});
+		jpnlButtons.add(jbtnDelete);
+		/* END OF jbtnDelete */
+		
+		/* jscrlpnMainTable - scrollable container for student JTable */
+		JScrollPane jscrlpnMainTable = new JScrollPane();
+		jscrlpnMainTable.setAlignmentX(0.0f);
+		add(jscrlpnMainTable);
+		/* END OF jscrlpnMainTable */
+		
+		/* jtblStudents - table that shows the Students in a tabular format */
+		jtblStudents = new JTable();
+		jtblStudents.setRowHeight(20);
+		jtblStudents.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		
+		/* studentTableModel - the main TableModel object that jtblStudents uses */
+		//studentTableModel = new StudentTableModel(); Update after GUI
+		// Link this frame to the TableModel, so it can call studentRepository here.
+		//studentTableModel.studentManagementFrame = this; Update after GUI
+		/* END OF studentTableModel */
+		//jtblStudents.setModel(studentTableModel); Update after GUI
+		
+		// Add the table to the scrollable container
+		//jscrlpnMainTable.setViewportView(jtblStudents);
+		/* END OF jtblStudents */
+	}
+
+}
