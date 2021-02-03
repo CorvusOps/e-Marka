@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,11 +17,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 
+@SuppressWarnings("serial")
 public class FrameMain extends JFrame {
 	
 	private JPanel jpnlContentPane;
 	
-	//private gui.entity.student PanelStudentManagement;
+	private gui.entity.student.PanelStudentManagement studentManagementPanel;
+	private gui.entity.subject.PanelSubjectManagement subjectManagementPanel;
 	
 	private JPanel currentShownPanel;
 
@@ -60,14 +61,12 @@ public class FrameMain extends JFrame {
 		jbtnStudentsPanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** UPDATE: Later after GUI.
-				 * if(currentShownPanel != null && currentShownPanel != studentManagementPanel)
+				 if(currentShownPanel != null && currentShownPanel != studentManagementPanel)
 					remove(currentShownPanel);
 				currentShownPanel = studentManagementPanel;
-				add(studentManagementPanel, BorderLayout.CENTER);
+				getContentPane().add(studentManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
-				*/
 			}
 		});
 		jbtnStudentsPanel.setForeground(new Color(255, 255, 255));
@@ -84,14 +83,12 @@ public class FrameMain extends JFrame {
 		jbtnSubjectsPanel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/** UPDATE: Later after GUI.
-				 * if(currentShownPanel != null && currentShownPanel != subjectManagementPanel)
+				 if(currentShownPanel != null && currentShownPanel != subjectManagementPanel)
 					remove(currentShownPanel);
 				currentShownPanel = subjectManagementPanel;
-				add(subjectManagementPanel, BorderLayout.CENTER);
+				getContentPane().add(subjectManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
-				*/
 			}
 		});
 		jbtnSubjectsPanel.setMinimumSize(new Dimension(75, 35));
@@ -103,19 +100,40 @@ public class FrameMain extends JFrame {
 		jbtnSubjectsPanel.setBorderPainted(false);
 		jbtnSubjectsPanel.setBackground(new Color(51, 51, 51));
 		jpnlSidebar.add(jbtnSubjectsPanel);
+		
+		JButton jbtnGradesPanel = new JButton("Grades");
+		jbtnGradesPanel.setMinimumSize(new Dimension(75, 35));
+		jbtnGradesPanel.setMaximumSize(new Dimension(32767, 35));
+		jbtnGradesPanel.setHorizontalAlignment(SwingConstants.LEFT);
+		jbtnGradesPanel.setForeground(Color.WHITE);
+		jbtnGradesPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnGradesPanel.setFocusPainted(false);
+		jbtnGradesPanel.setBorderPainted(false);
+		jbtnGradesPanel.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(jbtnGradesPanel);
+		
+		JButton jbtnComponentsPanel = new JButton("Components");
+		jbtnComponentsPanel.setMinimumSize(new Dimension(75, 35));
+		jbtnComponentsPanel.setMaximumSize(new Dimension(32767, 35));
+		jbtnComponentsPanel.setHorizontalAlignment(SwingConstants.LEFT);
+		jbtnComponentsPanel.setForeground(Color.WHITE);
+		jbtnComponentsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnComponentsPanel.setFocusPainted(false);
+		jbtnComponentsPanel.setBorderPainted(false);
+		jbtnComponentsPanel.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(jbtnComponentsPanel);
 	}
 	
-	/*
-	public void setStudentManagementPanel(gui.entity.student studentManagementPanel) {
-		this.studentManagementPanel = PanelStudentManagement;
-	}
-	*/
 	
-	/* Update after on the process.
-	public void setSubjectManagementPanel(com.github.queebskeleton.studentmanagement.ui.subject.ManagementPanel subjectManagementPanel) {
+	
+	public void setStudentManagementPanel(gui.entity.student.PanelStudentManagement studentManagementPanel) {
+		this.studentManagementPanel = studentManagementPanel;
+	}
+	
+	
+
+	public void setSubjectManagementPanel(gui.entity.subject.PanelSubjectManagement subjectManagementPanel) {
 		this.subjectManagementPanel = subjectManagementPanel;
 	}
-	}
-	*/
 
 }
