@@ -15,29 +15,40 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
+
+import domain.Student;
+import repository.CRUDStudent;
+import repository.CRUDSubject;
 
 @SuppressWarnings("serial")
 public class PanelStudentManagement extends JPanel {
 	/** (Object Field / Instance Variable)
 	 * The Add Dialog form that this frame opens everytime add button is clicked.
 	 */
-	//private DialogCreateStudent addStudentDialog;
+	private DialogCreateStudent addStudentDialog;
 
 	/** (Object Field / Instance Variable)
 	 * The Add Dialog form that this frame opens everytime add button is clicked.
 	 */
-	//private DialogUpdateStudent updateStudentDialog;
+	private DialogUpdateStudent updateStudentDialog;
 	
 	/** (Object Field / Instance Variable)
 	 * The Student Table of this frame.
 	 */
 	private JTable jtblStudents;
 	
+	/** (Object Field / Instance Variable)
+	 * The main student repository object that the frame interacts with, to save and retrieve data.
+	 */
+	protected CRUDStudent studentRepository;
+	
+	protected CRUDSubject subjectRepository;
 
 	/** (Object Field / Instance Variable)
 	 * The TableModel that jtblStudents uses to show data.
 	 */
-	//protected PanelStudentManagement studentTableModel;
+	protected TemplateStudent studentTableModel;
 
 	/**
 	 * Create the frame. All initialization is done when the object is constructed.
@@ -48,6 +59,21 @@ public class PanelStudentManagement extends JPanel {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setPreferredSize(new Dimension(625, 400));
 		setMinimumSize(new Dimension(625, 400));
+		
+		/* addStudentDialog - the main add dialog form */
+		// Instantiate the addStudentDialog that we will use
+		addStudentDialog = new DialogCreateStudent();
+		// Set its StudentManagementFrame reference to this object.
+		addStudentDialog.studentManagementFrame = this;
+		/* END OF addStudentDialog */
+		
+		/* updateStudentDialog - the main update dialog form */
+		// Instantiate the updateStudentDialog that we will use
+		updateStudentDialog = new DialogUpdateStudent();
+		// Set its StudentManagementFrame reference to this object.
+		updateStudentDialog.studentManagementFrame = this;
+		/* END OF addStudentDialog */
+		
 		
 		/* jpnlHeader - header labels and buttons placed here. */
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -162,15 +188,30 @@ public class PanelStudentManagement extends JPanel {
 		jtblStudents.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
 		/* studentTableModel - the main TableModel object that jtblStudents uses */
-		//studentTableModel = new StudentTableModel(); Update after GUI
+		studentTableModel = new TemplateStudent();
 		// Link this frame to the TableModel, so it can call studentRepository here.
-		//studentTableModel.studentManagementFrame = this; Update after GUI
+		studentTableModel.studentManagementFrame = this; 
 		/* END OF studentTableModel */
-		//jtblStudents.setModel(studentTableModel); Update after GUI
+		jtblStudents.setModel(studentTableModel);
 		
 		// Add the table to the scrollable container
-		//jscrlpnMainTable.setViewportView(jtblStudents);
+		jscrlpnMainTable.setViewportView(jtblStudents);
 		/* END OF jtblStudents */
+	}
+	/**
+	 * Sets the global student repository object
+	 * that this frame, its StudentTableModel, and AddStudentDialog objects use.
+	 *  
+	 * @param studentRepository the student repository object to set.
+	 */
+	public void setStudentRepository(CRUDStudent studentRepository) {
+		this.studentRepository = studentRepository;
+		// Refresh the student table model immediately.
+		studentTableModel.refresh();
+	}
+
+	public void setSubjectRepository(CRUDSubject subjectRepository) {
+		this.subjectRepository = subjectRepository;
 	}
 
 }
