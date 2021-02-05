@@ -6,10 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
 
-public class TemplatePerformanceTasks extends JFrame {
+public class TemplatePerformanceTasks extends JPanel {
 
 	private JPanel contentPane;
+	private JTable jtblPT;
 
 	/**
 	 * Launch the application.
@@ -31,12 +37,22 @@ public class TemplatePerformanceTasks extends JFrame {
 	 * Create the frame.
 	 */
 	public TemplatePerformanceTasks() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JScrollPane jscrlpnPTTable = new JScrollPane();
+		add(jscrlpnPTTable);
+		
+		jtblPT = new JTable();
+		jtblPT.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtblPT.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Title", "Total"
+			}
+		));
+		jscrlpnPTTable.setViewportView(jtblPT);
+		
 	}
 
 }
