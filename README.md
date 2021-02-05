@@ -30,7 +30,7 @@
   ### Use GitHub
    The very first thing to do in this repository is to fork it, so you can have the copy of it on your own repository.
    #### Forking
-   ![Forking](Images/Forking.PNG)
+   ![Forking](image/Forking.PNG)
    To fork this repository, you need to be added as an __collaborators__.
       After you fork this repository, you will proceed in your repository.
    Copy it and clone it in the __Git Bash__ or __GitHub App__.
@@ -41,14 +41,14 @@
       
    Example for GitHub App: ` https://github.com/CorvusOps/RE-cord.git ` 
    
-![Clone A Repository](/Images/CloneARepo.PNG)
+![Clone A Repository](/image/CloneARepo.PNG)
 
    Example for Git Bash: ` git clone https://github.com/CorvusOps/RE-cord.git `
    > ps this will automatically copy the whole repository(RE-cord) in the desired directory/folder.
       
    #### Branching
    Before you do the codes, take not that you need to make another branch related to the work you were given.
-![Git Branching](Images/GitBranching.PNG)
+![Git Branching](image/GitBranching.PNG)
 
    Check your current branch: `git branch`
    Create a new branch: `git checkout -b <name>`
