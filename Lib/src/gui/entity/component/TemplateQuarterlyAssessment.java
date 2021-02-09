@@ -1,15 +1,18 @@
 package gui.entity.component;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
 
-public class TemplateQuarterlyAssessment extends JFrame {
+public class TemplateQuarterlyAssessment extends JPanel {
 
 	private JPanel contentPane;
+	private JTable jtblQA;
 
 	/**
 	 * Launch the application.
@@ -31,12 +34,22 @@ public class TemplateQuarterlyAssessment extends JFrame {
 	 * Create the frame.
 	 */
 	public TemplateQuarterlyAssessment() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JScrollPane jscrlpnQATable = new JScrollPane();
+		add(jscrlpnQATable);
+		
+		jtblQA = new JTable();
+		jtblQA.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Title", "Total"
+			}
+		));
+		jtblQA.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jscrlpnQATable.setViewportView(jtblQA);
+		
 	}
 
 }

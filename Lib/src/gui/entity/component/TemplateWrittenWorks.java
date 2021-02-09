@@ -6,10 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.Font;
+import javax.swing.table.DefaultTableModel;
 
-public class TemplateWrittenWorks extends JFrame {
+public class TemplateWrittenWorks extends JPanel{
 
 	private JPanel contentPane;
+	private JTable jtblWW;
 
 	/**
 	 * Launch the application.
@@ -31,12 +37,22 @@ public class TemplateWrittenWorks extends JFrame {
 	 * Create the frame.
 	 */
 	public TemplateWrittenWorks() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JScrollPane jscrlpnWWTable = new JScrollPane();
+		add(jscrlpnWWTable);
+		
+		jtblWW = new JTable();
+		jtblWW.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Title", "Total"
+			}
+		));
+		jtblWW.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jscrlpnWWTable.setViewportView(jtblWW);
+		
 	}
 
 }
