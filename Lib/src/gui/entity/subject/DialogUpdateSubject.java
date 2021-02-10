@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import domain.Subject;
-
 
 @SuppressWarnings("serial")
 public class DialogUpdateSubject extends JDialog {
@@ -112,7 +112,20 @@ private final JPanel contentPanel = new JPanel();
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// empty
+				// Retrieve inputs, then create a Subject object out of it
+				Subject subject =
+						new Subject(jtxtfldName.getText(), jtxtfldDescription.getText());
+
+				// Clear fields
+				clearFields();
+				// Save the parsed Subject
+				subjectManagementFrame.subjectRepository.update(subject);
+				
+				// Output friendly message
+				JOptionPane.showMessageDialog(null, "Successfully updated subject");
+				
+				// Refresh the TableModel, to prompt redraw of JTable
+				subjectManagementFrame.subjectTableModel.refresh();
 			}
 		});
 		getRootPane().setDefaultButton(jbtnOk);
