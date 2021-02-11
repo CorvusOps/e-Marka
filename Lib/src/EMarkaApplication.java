@@ -29,14 +29,40 @@ public class EMarkaApplication {
 		gui.entity.subject.PanelSubjectManagement subjectManagementPanel = 
 				new gui.entity.subject.PanelSubjectManagement();
 		// Wire the repositories that student management panel needs
-		//subjectManagementPanel.setSubjectRepository(subjectRepository);
-
+		subjectManagementPanel.setSubjectRepository(subjectRepository);
+		
+		//Create Grade Management Panel
+		gui.entity.grade.PanelGradeManagement gradeManagementPanel = 
+				new gui.entity.grade.PanelGradeManagement();
+		//Wire the repository that the grade management needs
+		
+		// Create Written Works Component Management Panel
+		gui.entity.component.PanelComponentWW wwComponentPanel = 
+				new gui.entity.component.PanelComponentWW();
+		// Wire the repository that the component management needs
+		
+		// Create Performance Tasks Component Management Panel
+		gui.entity.component.PanelComponentPT ptComponentPanel = 
+				new gui.entity.component.PanelComponentPT();
+		// Wire the repository that the component management needs
+		
+		// Create Quarterly Assessment Component Management Panel
+		gui.entity.component.PanelComponentQA qaComponentPanel = 
+				new gui.entity.component.PanelComponentQA();
+		// Wire the repository that the component management needs
+				
+		
 		
 		// Create Main Frame
 		FrameMain mainFrame = new FrameMain();
 		// Wire the components that main frame needs
 		mainFrame.setStudentManagementPanel(studentManagementPanel);
 		mainFrame.setSubjectManagementPanel(subjectManagementPanel);
+		mainFrame.setGradeManagementPanel(gradeManagementPanel);
+		mainFrame.setWWManagementPanel(wwComponentPanel);
+		mainFrame.setPTManagementPanel(ptComponentPanel);
+		mainFrame.setQAManagementPanel(qaComponentPanel);
+		
 		mainFrame.setVisible(true);
 		
 		
