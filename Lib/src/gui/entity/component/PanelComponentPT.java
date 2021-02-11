@@ -6,17 +6,23 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+
+import domain.Subject;
+import repository.CRUDPerformanceTasks;
+import repository.CRUDSubject;
 
 @SuppressWarnings("serial")
 public class PanelComponentPT extends JPanel {
@@ -24,6 +30,10 @@ public class PanelComponentPT extends JPanel {
 	private DialogCreatePT createPTDialog;
 	private JTable jtblPT;
 	protected TemplatePT ptTableModel;
+	
+	protected CRUDPerformanceTasks ptRepository;
+	protected CRUDSubject subjectRepository;
+	protected JComboBox cmbSubject;
 
 	public PanelComponentPT() {
 		setBackground(new Color(255, 255, 255));
@@ -31,20 +41,8 @@ public class PanelComponentPT extends JPanel {
 		setPreferredSize(new Dimension(625, 400));
 		setMinimumSize(new Dimension(625, 400));
 		
-		/* addStudentDialog - the main add dialog form */
-		// Instantiate the addStudentDialog that we will use
 		createPTDialog = new DialogCreatePT();
-		// Set its StudentManagementFrame reference to this object.
 		createPTDialog.ptManagementFrame = this;
-		/* END OF addStudentDialog
-		
-		/* updateStudentDialog - the main update dialog form 
-		// Instantiate the updateStudentDialog that we will use
-		updateStudentDialog = new DialogUpdateStudent();
-		// Set its StudentManagementFrame reference to this object.
-		updateStudentDialog.studentManagementFrame = this;
-		/* END OF addStudentDialog */
-		
 		
 		/* jpnlHeader - header labels and buttons placed here. */
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -57,7 +55,7 @@ public class PanelComponentPT extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("Performance Task Panel");
+		JLabel jlblHeader = new JLabel("PT Panel");
 		jlblHeader.setBackground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
@@ -82,32 +80,24 @@ public class PanelComponentPT extends JPanel {
 		jbtnCreatePT.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int rowIndex = jtblPT.getSelectedRow();
-				
-				if(rowIndex == -1) {
-					JOptionPane.showMessageDialog(
-							null,
-							"Please select a row first before viewing.",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				/* This update will be implemented after the GUI.
-				String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
-				Student student = studentRepository.getByStudentNumber(studentNumber);
-			
-				updateStudentDialog.initializeDialog(student);
-				updateStudentDialog.setVisible(true);
-				 */
-			}
+				Subject subject = ((Subject) cmbSubject.getSelectedItem());
+				createPTDialog.setSelectedSubject(subject);
+				createPTDialog.setVisible(true);			}
 		});
 		
-		JComboBox cmbSubject = new JComboBox();
-		cmbSubject.setModel(new DefaultComboBoxModel(new String[] {"Select Subject Here"}));
+		cmbSubject = new JComboBox();
 		cmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jpnlButtons.add(cmbSubject);
 		jpnlButtons.add(jbtnCreatePT);
-		/* END OF jbtnDelete */
+		
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
+		    	  ptTableModel.refreshWithSubject(subject);
+		      }
+		    };
+		 
+		cmbSubject.addItemListener(itemListener);
 		
 		/* jscrlpnMainTable - scrollable container for student JTable */
 		JScrollPane jscrlpnMainTable = new JScrollPane();
@@ -132,15 +122,22 @@ public class PanelComponentPT extends JPanel {
 		/* END OF jtblStudents */
 	}
 
-	/*
-	public void setStudentRepository(CRUDStudent studentRepository) {
-		this.studentRepository = studentRepository;
-		// Refresh the student table model immediately.
-		studentTableModel.refresh();
-	}
-
 	public void setSubjectRepository(CRUDSubject subjectRepository) {
 		this.subjectRepository = subjectRepository;
 	}
-	*/
+	
+	public void setPTRepository(CRUDPerformanceTasks ptRepository) {
+		this.ptRepository = ptRepository;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void refreshSubjectComboBox() {
+		List<Subject> subjectList = subjectRepository.getAll();
+		
+		Subject[] subjectArray = new Subject[subjectList.size()];
+		for(int i = 0; i < subjectList.size(); i++)
+			subjectArray[i] = subjectList.get(i);
+		
+		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
 }

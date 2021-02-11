@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.UIManager;
 
 
 @SuppressWarnings("serial")
@@ -38,7 +37,7 @@ public class FrameMain extends JFrame {
 	 */
 	public FrameMain() {
 		setTitle("E-Record Management System");
-		setMinimumSize(new Dimension(800, 500));
+		setMinimumSize(new Dimension(950, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		

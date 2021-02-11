@@ -1,6 +1,8 @@
 package connection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /* This is the connection file for MySQL connector in java.
  * params:

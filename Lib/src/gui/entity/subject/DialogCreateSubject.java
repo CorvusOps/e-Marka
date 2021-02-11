@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -111,7 +112,18 @@ private final JPanel contentPanel = new JPanel();
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// empty
+				Subject subject =
+						new Subject(jtxtfldName.getText(), jtxtfldDescription.getText());
+
+				clearFields();
+				subjectManagementFrame.subjectRepository.save(subject);
+				JOptionPane.showMessageDialog(null, "Successfully saved subject!", "Success!", EXIT_ON_CLOSE);
+				
+
+				subjectManagementFrame.subjectTableModel.refresh();
+				
+				clearFields();
+				setVisible(false);
 			}
 		});
 		getRootPane().setDefaultButton(jbtnOk);

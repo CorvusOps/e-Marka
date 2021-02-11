@@ -6,17 +6,26 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.ItemSelectable;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+
+import domain.Subject;
+import repository.CRUDQuarterlyAssessment;
+import repository.CRUDSubject;
 
 @SuppressWarnings("serial")
 public class PanelComponentQA extends JPanel {
@@ -24,6 +33,10 @@ public class PanelComponentQA extends JPanel {
 	private DialogCreateQA createQADialog;
 	private JTable jtblQA;
 	protected TemplateQA qaTableModel;
+	
+	protected CRUDQuarterlyAssessment qaRepository;
+	protected CRUDSubject subjectRepository;
+	protected JComboBox cmbSubject;
 
 	public PanelComponentQA() {
 		setBackground(new Color(255, 255, 255));
@@ -38,14 +51,6 @@ public class PanelComponentQA extends JPanel {
 		createQADialog.qaManagementFrame = this;
 		/* END OF addStudentDialog
 		
-		/* updateStudentDialog - the main update dialog form 
-		// Instantiate the updateStudentDialog that we will use
-		updateStudentDialog = new DialogUpdateStudent();
-		// Set its StudentManagementFrame reference to this object.
-		updateStudentDialog.studentManagementFrame = this;
-		/* END OF addStudentDialog */
-		
-		
 		/* jpnlHeader - header labels and buttons placed here. */
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JPanel jpnlHeader = new JPanel();
@@ -57,7 +62,7 @@ public class PanelComponentQA extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("Quarterly Assessment Panel");
+		JLabel jlblHeader = new JLabel("QA Panel");
 		jlblHeader.setBackground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
@@ -82,29 +87,25 @@ public class PanelComponentQA extends JPanel {
 		jbtnCreateQA.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int rowIndex = jtblQA.getSelectedRow();
-				
-				if(rowIndex == -1) {
-					JOptionPane.showMessageDialog(
-							null,
-							"Please select a row first before viewing.",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				/* This update will be implemented after the GUI.
-				String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
-				Student student = studentRepository.getByStudentNumber(studentNumber);
-			
-				updateStudentDialog.initializeDialog(student);
-				updateStudentDialog.setVisible(true);
-				 */
+				Subject subject = ((Subject) cmbSubject.getSelectedItem());
+				createQADialog.setSelectedSubject(subject);
+				createQADialog.setVisible(true);
 			}
 		});
 		
-		JComboBox cmbSubject = new JComboBox();
+		cmbSubject = new JComboBox();
 		cmbSubject.setModel(new DefaultComboBoxModel(new String[] {"Select Subject Here"}));
 		cmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
+		    	  qaTableModel.refreshWithSubject(subject);
+		      }
+		    };
+		 
+		cmbSubject.addItemListener(itemListener);
+		
 		jpnlButtons.add(cmbSubject);
 		jpnlButtons.add(jbtnCreateQA);
 		/* END OF jbtnDelete */
@@ -132,15 +133,22 @@ public class PanelComponentQA extends JPanel {
 		/* END OF jtblStudents */
 	}
 
-	/*
-	public void setStudentRepository(CRUDStudent studentRepository) {
-		this.studentRepository = studentRepository;
-		// Refresh the student table model immediately.
-		studentTableModel.refresh();
-	}
-
 	public void setSubjectRepository(CRUDSubject subjectRepository) {
 		this.subjectRepository = subjectRepository;
 	}
-	*/
+	
+	public void setQARepository(CRUDQuarterlyAssessment qaRepository) {
+		this.qaRepository = qaRepository;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void refreshSubjectComboBox() {
+		List<Subject> subjectList = subjectRepository.getAll();
+		
+		Subject[] subjectArray = new Subject[subjectList.size()];
+		for(int i = 0; i < subjectList.size(); i++)
+			subjectArray[i] = subjectList.get(i);
+		
+		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
 }
