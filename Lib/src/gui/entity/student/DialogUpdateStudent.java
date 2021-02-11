@@ -1,6 +1,7 @@
 package gui.entity.student;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,7 +10,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -225,16 +225,14 @@ private final JPanel contentPanel = new JPanel();
 								jtxtfldSection.getText(),
 								null);
 
-				// Clear fields
 				clearFields();
-				// Save the parsed Student
+				
 				studentManagementFrame.studentRepository.update(student);
-				
-				// Output friendly message
 				JOptionPane.showMessageDialog(null, "Successfully updated student");
-				
-				// Refresh the TableModel, to prompt redraw of JTable
 				studentManagementFrame.studentTableModel.refresh();
+				
+				clearFields();
+				setVisible(false);
 			}
 		});
 		getRootPane().setDefaultButton(jbtnOk);

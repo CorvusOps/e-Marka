@@ -1,7 +1,5 @@
 package gui.entity.grade;
 
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
 
 //import domain.Grade;

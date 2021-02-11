@@ -59,6 +59,22 @@ public class Student {
 		this.section = section;
 		this.subject = subject;
 	}
+	
+	public Student(
+			String firstName,
+			String middleName,
+			String lastName,
+			String address,
+			String section,
+			Subject subject) {
+		super();
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.address = address;
+		this.section = section;
+		this.subject = subject;
+	}
 
 	public String getStudentNumber() {
 		return studentNumber;

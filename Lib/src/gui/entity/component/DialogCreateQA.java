@@ -9,17 +9,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import domain.QuarterlyAssessment;
+import domain.Subject;
 
 @SuppressWarnings("serial")
 public class DialogCreateQA extends JDialog {
@@ -35,6 +35,7 @@ private final JPanel contentPanel = new JPanel();
 	// Input Fields
 	private JTextField jtxtfldComponentTitle;
 	private JTextField jtxtfldComponentTotal;
+	private Subject subject;
 
 	/**
 	 * Create the dialog.
@@ -115,27 +116,18 @@ private final JPanel contentPanel = new JPanel();
 		jbtnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Retrieve inputs, then create a Student object out of it
-				/*Student student =
-						new Student(
+				QuarterlyAssessment quarterlyassessment =
+						new QuarterlyAssessment(
 								jtxtfldComponentTitle.getText(),
-								jtxtfldFirstName.getText(),
-								jtxtfldCompomentTotal.getText(),
-								jtxtfldLastName.getText(),
-								jtxtfldAddress.getText(),
-								jtxtfldSection.getText(),
-								(Subject) jcmbSubject.getSelectedItem());
+								Float.parseFloat(jtxtfldComponentTotal.getText()),
+								(Subject) subject);
 
-				// Clear fields
 				clearFields();
-				// Save the parsed Student
-				studentManagementFrame.studentRepository.save(student);
-				
-				// Output friendly message
-				JOptionPane.showMessageDialog(null, "Successfully saved student");
-				
-				// Refresh the TableModel, to prompt redraw of JTable
-				studentManagementFrame.studentTableModel.refresh();*/
+				qaManagementFrame.qaRepository.save(quarterlyassessment);
+				JOptionPane.showMessageDialog(null, "Successfully saved!");
+				qaManagementFrame.qaTableModel.refreshWithSubject(subject); 
+				clearFields();
+				setVisible(false);
 			}
 		});
 		getRootPane().setDefaultButton(jbtnAdd);
@@ -159,5 +151,9 @@ private final JPanel contentPanel = new JPanel();
 	private void clearFields() {
 		jtxtfldComponentTitle.setText("");
 		jtxtfldComponentTotal.setText("");
+	}
+	
+	public void setSelectedSubject(Subject subject) {
+		this.subject = subject;
 	}
 }
