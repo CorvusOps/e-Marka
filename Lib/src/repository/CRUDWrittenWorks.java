@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import domain.QuarterlyAssessment;
 import domain.Subject;
 import domain.WrittenWorks;
 
@@ -19,7 +18,7 @@ public class CRUDWrittenWorks {
 	private DataSource dataSource;
 	
 	public CRUDWrittenWorks(DataSource dataSource) {
-		this.dataSource = dataSource;
+		this.dataSource = dataSource; // Remove this later.
 	}
 	
 	public List<WrittenWorks> getAll() {

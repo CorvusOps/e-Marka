@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import domain.PerformanceTasks;
 import domain.Subject;
 import domain.WrittenWorks;
 
