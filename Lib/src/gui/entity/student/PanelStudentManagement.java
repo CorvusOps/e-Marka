@@ -21,6 +21,12 @@ import domain.Student;
 import repository.CRUDStudent;
 import repository.CRUDSubject;
 
+/**
+ *
+ *
+ *
+ */
+
 @SuppressWarnings("serial")
 public class PanelStudentManagement extends JPanel {
 	/** (Object Field / Instance Variable)

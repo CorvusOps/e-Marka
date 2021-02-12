@@ -31,12 +31,12 @@ public class PanelGradeManagement extends JPanel {
 		setPreferredSize(new Dimension(625, 400));
 		setMinimumSize(new Dimension(625, 400));
 		
-		/* addStudentDialog - the main add dialog form */
-		// Instantiate the addStudentDialog that we will use
+		/* viewGradeDialog - the main add dialog form */
+		// Instantiate the viewGradeDialog that we will use
 		viewGradeDialog = new DialogViewGrade();
-		// Set its StudentManagementFrame reference to this object.
+		// Set its GradeManagementFrame reference to this object.
 		viewGradeDialog.gradeManagementFrame = this;
-		/* END OF addStudentDialog
+		/* END OF viewGradeDialog
 		
 		/* updateStudentDialog - the main update dialog form 
 		// Instantiate the updateStudentDialog that we will use
@@ -101,12 +101,13 @@ public class PanelGradeManagement extends JPanel {
 				 */
 			}
 		});
+		jpnlButtons.add(jbtnViewGrade);
+		/* END OF jbtnViewGrade */
 		
 		JComboBox cmbSubject = new JComboBox();
 		cmbSubject.setModel(new DefaultComboBoxModel(new String[] {"Select Subject Here"}));
 		cmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jpnlButtons.add(cmbSubject);
-		jpnlButtons.add(jbtnViewGrade);
 		/* END OF jbtnDelete */
 		
 		/* jscrlpnMainTable - scrollable container for student JTable */
