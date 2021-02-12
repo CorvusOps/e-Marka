@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import domain.Subject;
 import repository.CRUDSubject;
 
+@SuppressWarnings("serial")
 public class PanelSubjectManagement extends JPanel {
 	/** (Object Field / Instance Variable)
 	 * The Add Dialog form that this frame opens everytime add button is clicked.
