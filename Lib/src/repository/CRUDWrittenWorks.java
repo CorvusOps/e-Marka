@@ -18,7 +18,7 @@ public class CRUDWrittenWorks {
 	private DataSource dataSource;
 	
 	public CRUDWrittenWorks(DataSource dataSource) {
-		this.dataSource = dataSource;
+		this.dataSource = dataSource; // Remove this later.
 	}
 	
 	public List<WrittenWorks> getAll() {
