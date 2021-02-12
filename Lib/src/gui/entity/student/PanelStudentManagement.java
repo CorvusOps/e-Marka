@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +25,6 @@ import domain.Student;
 import domain.Subject;
 import repository.CRUDStudent;
 import repository.CRUDSubject;
-import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class PanelStudentManagement extends JPanel {
