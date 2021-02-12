@@ -1,7 +1,6 @@
 package repository;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,17 +87,45 @@ public class CRUDQuarterlyAssessment {
 		try(
 			Connection connection = dataSource.getConnection();
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO quarterlyAssessment VALUES (?, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO quarterlyAssessment VALUES (null, ?, ?, ?)")) {
 			
-			insertStatement.setInt(1, quarterlyAssessment.getquarterlyAssessment_id());
-			insertStatement.setString(2, quarterlyAssessment.getquarterlyAssessment_title());
-			insertStatement.setFloat(3, quarterlyAssessment.getquarterlyAssessment_total());
-			insertStatement.setInt(4, quarterlyAssessment.getSubject().getId());
+			insertStatement.setString(1, quarterlyAssessment.getquarterlyAssessment_title());
+			insertStatement.setFloat(2, quarterlyAssessment.getquarterlyAssessment_total());
+			insertStatement.setInt(3, quarterlyAssessment.getSubject().getId());
 			
 			insertStatement.execute();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<QuarterlyAssessment> getByQASubjectID(Subject subject) {
+		List<QuarterlyAssessment> quarterlyAssessmentList = new ArrayList<>();
+		
+		try(
+			Connection connection = dataSource.getConnection();
+			Statement retrieveStatement = connection.createStatement();
+			ResultSet quarterlyAssessmentResultSet = retrieveStatement.executeQuery("SELECT * FROM quarterlyAssessment LEFT JOIN subject ON subject.id = quarterlyAssessment.quarterlyAssessment_subjectid" + 
+					" WHERE quarterlyAssessment_subjectid = '" + subject.getId() + "'")) {
+			
+			while(quarterlyAssessmentResultSet.next()) {
+				int 	quarterlyAssessment_id = quarterlyAssessmentResultSet.getInt(1);	
+				String 	quarterlyAssessment_title = quarterlyAssessmentResultSet.getString(2);
+				float 	quarterlyAssessment_total = quarterlyAssessmentResultSet.getFloat(3);
+				int 	quarterlyAssessment_subjectid = quarterlyAssessmentResultSet.getInt(4),
+						subject_id = quarterlyAssessmentResultSet.getInt(5);
+				String 	subject_name = quarterlyAssessmentResultSet.getString(6),
+						subject_description = quarterlyAssessmentResultSet.getString(7);
+			
+				subject = new Subject(subject_id, subject_name, subject_description);
+				
+				quarterlyAssessmentList.add(new QuarterlyAssessment(quarterlyAssessment_id, quarterlyAssessment_title, quarterlyAssessment_total, subject));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quarterlyAssessmentList;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import domain.Student;
+import domain.Subject;
 
 @SuppressWarnings("serial")
 public class TemplateStudent extends AbstractTableModel {
@@ -93,7 +94,7 @@ public class TemplateStudent extends AbstractTableModel {
 			
 		// Second Column - name
 		case 1:
-			return student.getFirstName() + " " + student.getLastName();
+			return student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName();
 			
 		// Third Column - address
 		case 2:
@@ -117,6 +118,13 @@ public class TemplateStudent extends AbstractTableModel {
 		currentValue = studentManagementFrame.studentRepository.getAll();
 		fireTableDataChanged();
 	}
+	
+	public void refreshWithSubject(Subject subject) {
+		currentValue = studentManagementFrame.studentRepository.getByStudentSubjectID(subject);
+		fireTableDataChanged();
+	}
+	
+	
 
 
 }

@@ -122,10 +122,13 @@ private final JPanel contentPanel = new JPanel();
 				subjectManagementFrame.subjectRepository.update(subject);
 				
 				// Output friendly message
-				JOptionPane.showMessageDialog(null, "Successfully updated subject");
+				JOptionPane.showMessageDialog(null, "Successfully updated subject", "Success!", EXIT_ON_CLOSE);
 				
 				// Refresh the TableModel, to prompt redraw of JTable
 				subjectManagementFrame.subjectTableModel.refresh();
+				
+				clearFields();
+				setVisible(false);
 			}
 		});
 		getRootPane().setDefaultButton(jbtnOk);

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import domain.Student;
+import domain.Subject;
 
 public class CRUDStudent {
 	/**
@@ -109,16 +110,15 @@ public class CRUDStudent {
 			Connection connection = dataSource.getConnection();
 			// Prepare a placeholder object for an INSERT SQL Statement
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO student VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO student VALUES (null, ?, ?, ?, ?, ?, ?)")) {
 			
 			// Bind each field of the student object into the insert statement object.
-			insertStatement.setString(1, student.getStudentNumber());
-			insertStatement.setString(2, student.getFirstName());
-			insertStatement.setString(3, student.getMiddleName());
-			insertStatement.setString(4, student.getLastName());
-			insertStatement.setString(5, student.getAddress());
-			insertStatement.setString(6, student.getSection());
-			insertStatement.setInt(7, student.getSubject().getId());
+			insertStatement.setString(1, student.getFirstName());
+			insertStatement.setString(2, student.getMiddleName());
+			insertStatement.setString(3, student.getLastName());
+			insertStatement.setString(4, student.getAddress());
+			insertStatement.setString(5, student.getSection());
+			insertStatement.setInt(6, student.getSubject().getId());
 			
 			// Execute the insert statement.
 			insertStatement.execute();
@@ -160,6 +160,38 @@ public class CRUDStudent {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Student> getByStudentSubjectID(Subject subject) {
+		List<Student> studentList = new ArrayList<>();
+		
+		try(
+			Connection connection = dataSource.getConnection();
+			Statement retrieveStatement = connection.createStatement();
+			ResultSet studentsResultSet = retrieveStatement.executeQuery("SELECT * FROM student LEFT JOIN subject ON subject.id = student.subject_id" + 
+					" WHERE subject_id = '" + subject.getId() + "'")) {
+			
+			while(studentsResultSet.next()) {
+				String studentNumber = studentsResultSet.getString(1),
+						   firstName = studentsResultSet.getString(2),
+						   middleName = studentsResultSet.getString(3),
+						   lastName = studentsResultSet.getString(4),
+						   address = studentsResultSet.getString(5),
+						   section = studentsResultSet.getString(6);
+				int 		subject_id = studentsResultSet.getInt(7);
+				int 		id = studentsResultSet.getInt(8);
+				String 		subject_name = studentsResultSet.getString(9),
+							subject_description = studentsResultSet.getString(10);
+			
+				subject = new Subject(id, subject_name, subject_description);
+				
+				studentList.add(new Student(studentNumber, firstName, middleName, lastName, address, section, subject));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return studentList;
 	}
 
 }

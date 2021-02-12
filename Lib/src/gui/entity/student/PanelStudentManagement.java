@@ -6,18 +6,23 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableModel;
 
 import domain.Student;
+import domain.Subject;
 import repository.CRUDStudent;
 import repository.CRUDSubject;
 
@@ -55,6 +60,7 @@ public class PanelStudentManagement extends JPanel {
 	 * The TableModel that jtblStudents uses to show data.
 	 */
 	protected TemplateStudent studentTableModel;
+	protected JComboBox cmbSubject;
 
 	/**
 	 * Create the frame. All initialization is done when the object is constructed.
@@ -92,7 +98,7 @@ public class PanelStudentManagement extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("Student Management Panel");
+		JLabel jlblHeader = new JLabel("Student Panel");
 		jlblHeader.setBackground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
@@ -117,14 +123,25 @@ public class PanelStudentManagement extends JPanel {
 		jbtnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*Set the Action here. Remove this after finishing the GUI
 				addStudentDialog.refreshSubjectComboBox();
 				addStudentDialog.setVisible(true);
-				*/
 			}
 		});
+		
+		cmbSubject = new JComboBox();
+		cmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		
+		jpnlButtons.add(cmbSubject);
 		jpnlButtons.add(jbtnAdd);
-		/* END OF jbtnAdd */
+		
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
+		    	  studentTableModel.refreshWithSubject(subject);
+		      }
+		    };
+		 
+		cmbSubject.addItemListener(itemListener);
 		
 		/* jbtnUpdate - updates a row in the JTable with a Dialog */
 		JButton jbtnUpdate = new JButton("Update");
@@ -142,13 +159,12 @@ public class PanelStudentManagement extends JPanel {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				/* This update will be implemented after the GUI.
+				
 				String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
 				Student student = studentRepository.getByStudentNumber(studentNumber);
 			
 				updateStudentDialog.initializeDialog(student);
 				updateStudentDialog.setVisible(true);
-				 */
 			}
 		});
 		jpnlButtons.add(jbtnUpdate);
@@ -170,13 +186,12 @@ public class PanelStudentManagement extends JPanel {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				/* This update will be implemented after the GUI.
+
 				if(JOptionPane.showConfirmDialog(null, "Are you sure?") == JOptionPane.YES_OPTION) {
 					String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
 					studentRepository.deleteByStudentNumber(studentNumber);
 					studentTableModel.refresh();
 				} 
-				*/
 			}
 		});
 		jpnlButtons.add(jbtnDelete);
@@ -212,12 +227,22 @@ public class PanelStudentManagement extends JPanel {
 	 */
 	public void setStudentRepository(CRUDStudent studentRepository) {
 		this.studentRepository = studentRepository;
-		// Refresh the student table model immediately.
 		studentTableModel.refresh();
 	}
 
 	public void setSubjectRepository(CRUDSubject subjectRepository) {
 		this.subjectRepository = subjectRepository;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void refreshSubjectComboBox() {
+		List<Subject> subjectList = subjectRepository.getAll();
+		
+		Subject[] subjectArray = new Subject[subjectList.size()];
+		for(int i = 0; i < subjectList.size(); i++)
+			subjectArray[i] = subjectList.get(i);
+		
+		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
 	}
 
 }

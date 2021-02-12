@@ -24,6 +24,11 @@ public class FrameMain extends JFrame {
 	
 	private gui.entity.student.PanelStudentManagement studentManagementPanel;
 	private gui.entity.subject.PanelSubjectManagement subjectManagementPanel;
+	//private gui.entity.component.PanelComponentManagement componentManagementPanel;
+	private gui.entity.grade.PanelGradeManagement gradeManagementPanel;
+	private gui.entity.component.PanelComponentWW wwManagementPanel;
+	private gui.entity.component.PanelComponentPT ptManagementPanel;
+	private gui.entity.component.PanelComponentQA qaManagementPanel;
 	
 	private JPanel currentShownPanel;
 
@@ -32,7 +37,7 @@ public class FrameMain extends JFrame {
 	 */
 	public FrameMain() {
 		setTitle("E-Record Management System");
-		setMinimumSize(new Dimension(800, 500));
+		setMinimumSize(new Dimension(950, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -102,6 +107,17 @@ public class FrameMain extends JFrame {
 		jpnlSidebar.add(jbtnSubjectsPanel);
 		
 		JButton jbtnGradesPanel = new JButton("Grades");
+		jbtnGradesPanel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 if(currentShownPanel != null && currentShownPanel != gradeManagementPanel)
+					remove(currentShownPanel);
+				currentShownPanel = gradeManagementPanel;
+				getContentPane().add(gradeManagementPanel, BorderLayout.CENTER);
+				revalidate();
+				repaint();
+			}
+		});
 		jbtnGradesPanel.setMinimumSize(new Dimension(75, 35));
 		jbtnGradesPanel.setMaximumSize(new Dimension(32767, 35));
 		jbtnGradesPanel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -112,16 +128,78 @@ public class FrameMain extends JFrame {
 		jbtnGradesPanel.setBackground(new Color(51, 51, 51));
 		jpnlSidebar.add(jbtnGradesPanel);
 		
-		JButton jbtnComponentsPanel = new JButton("Components");
-		jbtnComponentsPanel.setMinimumSize(new Dimension(75, 35));
-		jbtnComponentsPanel.setMaximumSize(new Dimension(32767, 35));
-		jbtnComponentsPanel.setHorizontalAlignment(SwingConstants.LEFT);
-		jbtnComponentsPanel.setForeground(Color.WHITE);
-		jbtnComponentsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		jbtnComponentsPanel.setFocusPainted(false);
-		jbtnComponentsPanel.setBorderPainted(false);
-		jbtnComponentsPanel.setBackground(new Color(51, 51, 51));
-		jpnlSidebar.add(jbtnComponentsPanel);
+		JLabel lblNewLabel = new JLabel("         Components");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+		lblNewLabel.setBackground(Color.DARK_GRAY);
+		jpnlSidebar.add(lblNewLabel);
+		
+		JButton jbtnComponentWW = new JButton("Written Works");
+		jbtnComponentWW.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 if(currentShownPanel != null && currentShownPanel != wwManagementPanel)
+					remove(currentShownPanel);
+				currentShownPanel = wwManagementPanel;
+				getContentPane().add(wwManagementPanel, BorderLayout.CENTER);
+				revalidate();
+				repaint();
+			}
+		});
+		jbtnComponentWW.setMinimumSize(new Dimension(75, 35));
+		jbtnComponentWW.setMaximumSize(new Dimension(32767, 35));
+		jbtnComponentWW.setHorizontalAlignment(SwingConstants.LEFT);
+		jbtnComponentWW.setForeground(Color.WHITE);
+		jbtnComponentWW.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnComponentWW.setFocusPainted(false);
+		jbtnComponentWW.setBorderPainted(false);
+		jbtnComponentWW.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(jbtnComponentWW);
+		
+		JButton btnPerformanceTasks = new JButton("Performance Tasks");
+		btnPerformanceTasks.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 if(currentShownPanel != null && currentShownPanel != ptManagementPanel)
+					remove(currentShownPanel);
+				currentShownPanel = ptManagementPanel;
+				getContentPane().add(ptManagementPanel, BorderLayout.CENTER);
+				revalidate();
+				repaint();
+			}
+		});
+		btnPerformanceTasks.setMinimumSize(new Dimension(75, 35));
+		btnPerformanceTasks.setMaximumSize(new Dimension(32767, 35));
+		btnPerformanceTasks.setHorizontalAlignment(SwingConstants.LEFT);
+		btnPerformanceTasks.setForeground(Color.WHITE);
+		btnPerformanceTasks.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnPerformanceTasks.setFocusPainted(false);
+		btnPerformanceTasks.setBorderPainted(false);
+		btnPerformanceTasks.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(btnPerformanceTasks);
+		
+		JButton btnQuarterlyAssessment = new JButton("Quarterly Assessment");
+		btnQuarterlyAssessment.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 if(currentShownPanel != null && currentShownPanel != qaManagementPanel)
+					remove(currentShownPanel);
+				currentShownPanel = qaManagementPanel;
+				getContentPane().add(qaManagementPanel, BorderLayout.CENTER);
+				revalidate();
+				repaint();
+			}
+		});
+		btnQuarterlyAssessment.setMinimumSize(new Dimension(75, 35));
+		btnQuarterlyAssessment.setMaximumSize(new Dimension(32767, 35));
+		btnQuarterlyAssessment.setHorizontalAlignment(SwingConstants.LEFT);
+		btnQuarterlyAssessment.setForeground(Color.WHITE);
+		btnQuarterlyAssessment.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnQuarterlyAssessment.setFocusPainted(false);
+		btnQuarterlyAssessment.setBorderPainted(false);
+		btnQuarterlyAssessment.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(btnQuarterlyAssessment);
 	}
 	
 	
@@ -130,10 +208,25 @@ public class FrameMain extends JFrame {
 		this.studentManagementPanel = studentManagementPanel;
 	}
 	
-	
 
 	public void setSubjectManagementPanel(gui.entity.subject.PanelSubjectManagement subjectManagementPanel) {
 		this.subjectManagementPanel = subjectManagementPanel;
+	}
+	
+	public void setGradeManagementPanel(gui.entity.grade.PanelGradeManagement gradeManagementPanel) {
+		this.gradeManagementPanel = gradeManagementPanel;
+	}
+	
+	public void setWWManagementPanel(gui.entity.component.PanelComponentWW wwManagementPanel) {
+		this.wwManagementPanel = wwManagementPanel;
+	}
+	
+	public void setPTManagementPanel(gui.entity.component.PanelComponentPT ptManagementPanel) {
+		this.ptManagementPanel = ptManagementPanel;
+	}
+
+	public void setQAManagementPanel(gui.entity.component.PanelComponentQA qaManagementPanel) {
+		this.qaManagementPanel = qaManagementPanel;
 	}
 
 }

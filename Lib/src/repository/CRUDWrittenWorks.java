@@ -10,15 +10,15 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import domain.WrittenWorks;
 import domain.Subject;
+import domain.WrittenWorks;
 
 public class CRUDWrittenWorks {
 	
 	private DataSource dataSource;
 	
 	public CRUDWrittenWorks(DataSource dataSource) {
-		this.dataSource = dataSource;
+		this.dataSource = dataSource; // Remove this later.
 	}
 	
 	public List<WrittenWorks> getAll() {
@@ -88,17 +88,45 @@ public class CRUDWrittenWorks {
 		try(
 			Connection connection = dataSource.getConnection();
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO writtenWorks VALUES (?, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO writtenWorks VALUES (null, ?, ?, ?)")) {
 			
-			insertStatement.setInt(1, writtenWorks.getwrittenWorks_id());
-			insertStatement.setString(2, writtenWorks.getwrittenWorks_title());
-			insertStatement.setFloat(3, writtenWorks.getwrittenWorks_total());
-			insertStatement.setInt(4, writtenWorks.getSubject().getId());
+			insertStatement.setString(1, writtenWorks.getwrittenWorks_title());
+			insertStatement.setFloat(2, writtenWorks.getwrittenWorks_total());
+			insertStatement.setInt(3, writtenWorks.getSubject().getId());
 			
 			insertStatement.execute();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<WrittenWorks> getByWWSubjectID(Subject subject) {
+		List<WrittenWorks> writtenWorksAssessmentList = new ArrayList<>();
+		
+		try(
+			Connection connection = dataSource.getConnection();
+			Statement retrieveStatement = connection.createStatement();
+			ResultSet writtenWorksResultSet = retrieveStatement.executeQuery("SELECT * FROM writtenWorks LEFT JOIN subject ON subject.id = writtenWorks.writtenWorks_subjectid" + 
+					" WHERE writtenWorks_subjectid = '" + subject.getId() + "'")) {
+			
+			while(writtenWorksResultSet.next()) {
+				int 	writtenWorks_id = writtenWorksResultSet.getInt(1);	
+				String 	writtenWorks_title = writtenWorksResultSet.getString(2);
+				float 	writtenWorks_total = writtenWorksResultSet.getFloat(3);
+				int 	writtenWorks_subjectid = writtenWorksResultSet.getInt(4),
+						subject_id = writtenWorksResultSet.getInt(5);
+				String 	subject_name = writtenWorksResultSet.getString(6),
+						subject_description = writtenWorksResultSet.getString(7);
+			
+				subject = new Subject(subject_id, subject_name, subject_description);
+				
+				writtenWorksAssessmentList.add(new WrittenWorks(writtenWorks_id, writtenWorks_title, writtenWorks_total, subject));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return writtenWorksAssessmentList;
 	}
 	
 }

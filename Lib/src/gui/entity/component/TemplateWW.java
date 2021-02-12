@@ -4,25 +4,24 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import domain.PerformanceTasks;
 import domain.Subject;
+import domain.WrittenWorks;
 
 @SuppressWarnings("serial")
-public class TemplatePT extends AbstractTableModel {
+public class TemplateWW extends AbstractTableModel {
 	
-	protected PanelComponentPT ptManagementFrame;
-	private static List<PerformanceTasks> currentValue;
-	
+	protected PanelComponentWW wwManagementFrame;
+	private static List<WrittenWorks> currentValue;
 
 	@Override
 	public int getColumnCount() {
+		// TODO Auto-generated method stub
 		return 2;
 	}
-	
 	/**
 	 * Fetches the column names of this TableModel.
 	 */
-	@Override
+	
 	public String getColumnName(int columnIndex) {
 		switch(columnIndex) {
 		
@@ -53,15 +52,15 @@ public class TemplatePT extends AbstractTableModel {
 		if(currentValue == null)
 			return null;
 		
-		PerformanceTasks performanceTasks = currentValue.get(rowIndex);
+		WrittenWorks writtenWorks = currentValue.get(rowIndex);
 
 		switch(columnIndex) {
 
 		case 0:
-			return performanceTasks.getPerformanceTasks_title();
+			return writtenWorks.getwrittenWorks_title();
 
 		case 1:
-			return performanceTasks.getPerformanceTasks_total();
+			return writtenWorks.getwrittenWorks_total();
 		
 		default:
 			return null;
@@ -70,12 +69,12 @@ public class TemplatePT extends AbstractTableModel {
 	} 
 	
 	public void refresh() {
-		currentValue = ptManagementFrame.ptRepository.getAll();
+		currentValue = wwManagementFrame.wwRepository.getAll();
 		fireTableDataChanged();
 	}
 	
 	public void refreshWithSubject(Subject subject) {
-		currentValue = ptManagementFrame.ptRepository.getByPTSubjectID(subject);
+		currentValue = wwManagementFrame.wwRepository.getByWWSubjectID(subject);
 		fireTableDataChanged();
 	}
 

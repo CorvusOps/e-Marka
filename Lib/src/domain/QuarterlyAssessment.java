@@ -15,7 +15,7 @@ public class QuarterlyAssessment {
 		this.subject = subject;
 		}
 	
-	public QuarterlyAssessment(int quarterlyAssessment_id, String quarterlyAssessment_title, float total, Subject subject) {
+	public QuarterlyAssessment(int quarterlyAssessment_id, String quarterlyAssessment_title, float quarterlyAssessment_total, Subject subject) {
 		
 		super();
 		this.quarterlyAssessment_id = quarterlyAssessment_id;
@@ -28,7 +28,7 @@ public class QuarterlyAssessment {
 		return quarterlyAssessment_id;
 	}
 
-	public void setquarterlyAssessment_id(int id) {
+	public void setquarterlyAssessment_id(int quarterlyAssessment_id) {
 		this.quarterlyAssessment_id = quarterlyAssessment_id;
 	}
 
@@ -36,7 +36,7 @@ public class QuarterlyAssessment {
 		return quarterlyAssessment_title;
 	}
 
-	public void setquarterlyAssessment_title(String title) {
+	public void setquarterlyAssessment_title(String quarterlyAssessment_title) {
 		this.quarterlyAssessment_title = quarterlyAssessment_title;
 	}
 
@@ -44,7 +44,7 @@ public class QuarterlyAssessment {
 		return quarterlyAssessment_total;
 	}
 
-	public void setquarterlyAssessment_total(float total) {
+	public void setquarterlyAssessment_total(float quarterlyAssessment_total) {
 		this.quarterlyAssessment_total = quarterlyAssessment_total;
 	}
 
