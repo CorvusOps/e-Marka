@@ -12,6 +12,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import domain.Grade;
+import domain.Subject;
 
 /**
  * Goal: select all student then left join all grade types  
@@ -22,12 +23,21 @@ import domain.Grade;
 public class CRUDGrade {
 
 	private DataSource dataSource;
+	private GradeWWDAO gradeWWDAO;
+	private GradePTDAO gradePTDAO;
+	private GradeQADAO gradeQADAO;
 	
-	public CRUDGrade(DataSource dataSource) {
+	public CRUDGrade(DataSource dataSource,
+			GradeWWDAO gradeWWDAO,
+			GradePTDAO gradePTDAO,
+			GradeQADAO gradeQADAO) {
 		this.dataSource = dataSource;
+		this.gradeWWDAO = gradeWWDAO;
+		this.gradePTDAO = gradePTDAO;
+		this.gradeQADAO = gradeQADAO;
 	}
 	
-	  public List<Grade> getAllBySubjectId(int subjectId) {
+	  public List<Grade> getAllBySubjectId(Subject subject) {
 	        List<Grade> gradeList = new ArrayList<>();
 	        
 	        try(Connection connection = dataSource.getConnection();
@@ -42,9 +52,10 @@ public class CRUDGrade {
 	                Grade grade = new Grade();
 	                grade.setStudentNumber(studentNumber);
 	                grade.setStudentName(studentFirstName + " " + studentLastName);
-	                grade.setGradeWW(GradeWWDAO.getAllByStudentNumber(studentNumber));
-	                grade.setGradePT(GradePTDAO.getAllByStudentNumber(studentNumber));
-	                grade.setGradeQA(GradeQADAO.getAllByStudentNumber(studentNumber));
+	                
+	                grade.setGradeWW(gradeWWDAO.getAllByStudentNumber(studentNumber));
+	                grade.setGradePT(gradePTDAO.getAllByStudentNumber(studentNumber));
+	                grade.setGradeQA(gradeQADAO.getAllByStudentNumber(studentNumber));
 	                gradeList.add(grade);
 	            }
 	        } catch(SQLException e) {
