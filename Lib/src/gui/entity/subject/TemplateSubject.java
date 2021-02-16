@@ -99,7 +99,7 @@ public class TemplateSubject extends AbstractTableModel {
 			return null;
 		
 		}
-	}
+	}	
 	
 	/**
 	 * Refreshes this TableModel with new data. Also prompts the JTable to redraw everything
