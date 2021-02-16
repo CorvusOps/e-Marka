@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import domain.Grade;
 import domain.Subject;
 import repository.CRUDGrade;
 import repository.CRUDStudent;
@@ -99,13 +100,15 @@ public class PanelGradeManagement extends JPanel {
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				/* This update will be implemented after the GUI.
-				String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
-				Student student = studentRepository.getByStudentNumber(studentNumber);
+				
+				Subject subject = ((Subject) cmbSubject.getSelectedItem());
+				int studentNumber = (int) gradeTableModel.getValueAt(rowIndex, 0);
+				
+				
+				//Grade grade = gradeRepository.getAllBySubjectId(subject);
 			
-				updateStudentDialog.initializeDialog(student);
-				updateStudentDialog.setVisible(true);
-				 */
+				//viewGradeDialog.initializeDialog(student);
+				viewGradeDialog.setVisible(true);
 			}
 		});
 		jpnlButtons.add(jbtnViewGrade);

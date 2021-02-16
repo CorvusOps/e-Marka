@@ -52,18 +52,6 @@ public class TemplateGrade extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/*
-	public int getRowCount() {
 		if(currentValue == null)
 			return 0;
 		
@@ -85,19 +73,19 @@ public class TemplateGrade extends AbstractTableModel {
 		
 		// First Column - student number
 		case 0:
-			return student.getStudentNumber();
+			return grade.getStudentNumber();
 			
 		// Second Column - name
 		case 1:
-			return student.getFirstName() + " " + student.getLastName();
+			return grade.getStudentName();
 			
 		// Third Column - address
 		case 2:
-			return student.getAddress();
+			return null;
 			
 		// Fourth Column - section
 		case 3:
-			return student.getSection();
+			return null;
 		
 		default:
 			return null;
@@ -105,12 +93,6 @@ public class TemplateGrade extends AbstractTableModel {
 		}
 	}
 	
-	public void refresh() {
-		currentValue = studentManagementFrame.studentRepository.getAll();
-		fireTableDataChanged();
-	}
-	
-	*/
 	public void refreshWithSubject(Subject subject) {
 		currentValue = gradeManagementFrame.gradeRepository.getAllBySubjectId(subject);
 		fireTableDataChanged();

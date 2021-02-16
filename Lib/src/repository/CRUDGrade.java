@@ -42,7 +42,8 @@ public class CRUDGrade {
 	        
 	        try(Connection connection = dataSource.getConnection();
 	            Statement selectStatement = connection.createStatement();
-	            ResultSet resultSet = selectStatement.executeQuery("SELECT student_number, first_name, last_name FROM student")) {
+	            ResultSet resultSet = selectStatement.executeQuery("SELECT student_number, first_name, last_name FROM student LEFT JOIN subject ON subject.id = student.subject_id"
+	            		+ " WHERE subject_id = '" + subject.getId() + "'")) {
 	            
 	            while(resultSet.next()) {
 	                int studentNumber = resultSet.getInt(1);
@@ -64,6 +65,10 @@ public class CRUDGrade {
 	        
 	        return gradeList;
 	    }
+	  
+	  
+	  // getStudentBySubjectID <- retrieve that specific student only from the list
+	  // updateGrades <- update grades from 0
 	  
 	
 }
