@@ -7,18 +7,18 @@ public class PerformanceTasks {
 	private float performanceTasks_total;
 	private Subject subject;
 	
-	public PerformanceTasks(String performanceTasks_title, float performanceTasks_total,
+	public PerformanceTasks(int performanceTasks_id, String performanceTasks_title, float performanceTasks_total,
 			Subject subject) {
 		super();
+		this.performanceTasks_id = performanceTasks_id;
 		this.performanceTasks_title = performanceTasks_title;
 		this.performanceTasks_total = performanceTasks_total;
 		this.subject = subject;
 	}
 	
-	public PerformanceTasks(int performanceTasks_id, String performanceTasks_title, float performanceTasks_total,
+	public PerformanceTasks(String performanceTasks_title, float performanceTasks_total,
 			Subject subject) {
 		super();
-		this.performanceTasks_id = performanceTasks_id;
 		this.performanceTasks_title = performanceTasks_title;
 		this.performanceTasks_total = performanceTasks_total;
 		this.subject = subject;
@@ -39,7 +39,7 @@ public class PerformanceTasks {
 	public void setPerformanceTasks_title(String performanceTasks_title) {
 		this.performanceTasks_title = performanceTasks_title;
 	}
-	
+
 	public float getPerformanceTasks_total() {
 		return performanceTasks_total;
 	}
@@ -55,10 +55,5 @@ public class PerformanceTasks {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-
-	@Override
-	public String toString() {
-		return performanceTasks_title;
-	}
-
+	
 }
