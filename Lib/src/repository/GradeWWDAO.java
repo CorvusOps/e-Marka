@@ -12,11 +12,11 @@ import javax.sql.DataSource;
 import domain.GradeWW;
 
 public class GradeWWDAO {
-	private static DataSource dataSource;    
+	private  DataSource dataSource;    
     public GradeWWDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    public static List<GradeWW> getAllByStudentNumber(int studentNumber) {
+    public List<GradeWW> getAllByStudentNumber(int studentNumber) {
         List<GradeWW> GradeWWList = new ArrayList<>();
         
         try(Connection connection = dataSource.getConnection();
