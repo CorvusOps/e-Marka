@@ -2,34 +2,26 @@ package domain;
 
 public class QuarterlyAssessment {
 	
+	private int quarterlyAssessment_id;
 	private String quarterlyAssessment_title;
 	private float quarterlyAssessment_total;
-	private int quarterlyAssessment_id;
 	private Subject subject;
 	
-	public QuarterlyAssessment(String quarterlyAssessment_title, float quarterlyAssessment_total, Subject subject) {
-		
-		super();
-		this.quarterlyAssessment_title = quarterlyAssessment_title;
-		this.quarterlyAssessment_total = quarterlyAssessment_total;
-		this.subject = subject;
-		}
-	
-	public QuarterlyAssessment(int quarterlyAssessment_id, String quarterlyAssessment_title, float quarterlyAssessment_total, Subject subject) {
-		
+	public QuarterlyAssessment(int quarterlyAssessment_id, String quarterlyAssessment_title,
+			float quarterlyAssessment_total, Subject subject) {
 		super();
 		this.quarterlyAssessment_id = quarterlyAssessment_id;
 		this.quarterlyAssessment_title = quarterlyAssessment_title;
 		this.quarterlyAssessment_total = quarterlyAssessment_total;
 		this.subject = subject;
-		}
-	
-	public int getquarterlyAssessment_id() {
-		return quarterlyAssessment_id;
 	}
-
-	public void setquarterlyAssessment_id(int quarterlyAssessment_id) {
-		this.quarterlyAssessment_id = quarterlyAssessment_id;
+	
+	public QuarterlyAssessment(String quarterlyAssessment_title,
+			float quarterlyAssessment_total, Subject subject) {
+		super();
+		this.quarterlyAssessment_title = quarterlyAssessment_title;
+		this.quarterlyAssessment_total = quarterlyAssessment_total;
+		this.subject = subject;
 	}
 
 	public String getquarterlyAssessment_title() {
@@ -48,6 +40,14 @@ public class QuarterlyAssessment {
 		this.quarterlyAssessment_total = quarterlyAssessment_total;
 	}
 
+	public int getquarterlyAssessment_id() {
+		return quarterlyAssessment_id;
+	}
+
+	public void setquarterlyAssessment_id(int quarterlyAssessment_id) {
+		this.quarterlyAssessment_id = quarterlyAssessment_id;
+	}
+
 	public Subject getSubject() {
 		return subject;
 	}
@@ -55,10 +55,6 @@ public class QuarterlyAssessment {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-	
-	@Override
-	public String toString() {
-		return quarterlyAssessment_title;
-	}
+
 	
 }

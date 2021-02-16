@@ -5,20 +5,26 @@ import java.util.List;
 public class Grade {
 	
 	private int subject_id;
+	private int studentNumber;
 	private String studentName;
-	private List<GradeWW> gradesWW;
+	private List<GradeWW> gradeWW;
 	private List<GradePT> gradePT;
 	private List<GradeQA> gradeQA;
-
-	//select all student then left join all grade types 
-	public Grade(int subject_id, String studentName, List<GradeWW> gradesWW, List<GradePT> gradePT,
+	
+	public Grade(int subject_id, int studentNumber, String studentName, List<GradeWW> gradesWW, List<GradePT> gradePT,
 			List<GradeQA> gradeQA) {
 		super();
 		this.subject_id = subject_id;
+		this.studentNumber = studentNumber;
 		this.studentName = studentName;
-		this.gradesWW = gradesWW;
+		this.gradeWW = gradesWW;
 		this.gradePT = gradePT;
 		this.gradeQA = gradeQA;
+	}
+
+	public Grade() {
+		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public int getSubject_id() {
@@ -29,6 +35,14 @@ public class Grade {
 		this.subject_id = subject_id;
 	}
 
+	public int getStudentNumber() {
+		return studentNumber;
+	}
+
+	public void setStudentNumber(int studentNumber) {
+		this.studentNumber = studentNumber;
+	}
+
 	public String getStudentName() {
 		return studentName;
 	}
@@ -37,12 +51,12 @@ public class Grade {
 		this.studentName = studentName;
 	}
 
-	public List<GradeWW> getGradesWW() {
-		return gradesWW;
+	public List<GradeWW> getGradeWW() {
+		return gradeWW;
 	}
 
-	public void setGradesWW(List<GradeWW> gradesWW) {
-		this.gradesWW = gradesWW;
+	public void setGradeWW(List<GradeWW> gradesWW) {
+		this.gradeWW = gradesWW;
 	}
 
 	public List<GradePT> getGradePT() {
@@ -60,6 +74,9 @@ public class Grade {
 	public void setGradeQA(List<GradeQA> gradeQA) {
 		this.gradeQA = gradeQA;
 	}
+
+	//select all student then left join all grade types 
+	
 	
 	
 	

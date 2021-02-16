@@ -75,6 +75,7 @@ public class Student {
 		this.section = section;
 		this.subject = subject;
 	}
+	
 
 	public String getStudentNumber() {
 		return studentNumber;

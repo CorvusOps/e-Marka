@@ -7,18 +7,16 @@ public class WrittenWorks {
 	private float writtenWorks_total;
 	private Subject subject;
 	
-	public WrittenWorks(String writtenWorks_title, float writtenWorks_total,
-			Subject subject) {
+	public WrittenWorks(int writtenWorks_id, String writtenWorks_title, float writtenWorks_total, Subject subject) {
 		super();
+		this.writtenWorks_id = writtenWorks_id;
 		this.writtenWorks_title = writtenWorks_title;
 		this.writtenWorks_total = writtenWorks_total;
 		this.subject = subject;
 	}
 	
-	public WrittenWorks(int writtenWorks_id, String writtenWorks_title, float writtenWorks_total,
-			Subject subject) {
+	public WrittenWorks(String writtenWorks_title, float writtenWorks_total, Subject subject) {
 		super();
-		this.writtenWorks_id = writtenWorks_id;
 		this.writtenWorks_title = writtenWorks_title;
 		this.writtenWorks_total = writtenWorks_total;
 		this.subject = subject;
@@ -39,7 +37,7 @@ public class WrittenWorks {
 	public void setwrittenWorks_title(String writtenWorks_title) {
 		this.writtenWorks_title = writtenWorks_title;
 	}
-	
+
 	public float getwrittenWorks_total() {
 		return writtenWorks_total;
 	}
@@ -55,11 +53,6 @@ public class WrittenWorks {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
-
-	@Override
-	public String toString() {
-		return writtenWorks_title;
-	}
 	
-	
+		
 }

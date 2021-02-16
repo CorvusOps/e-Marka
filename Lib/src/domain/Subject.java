@@ -6,15 +6,21 @@ public class Subject {
 	private String name;
 	private String description;
 	
+	public Subject(int id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+	
 	public Subject(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}
 	
-	public Subject(int id, String name, String description) {
+	public Subject(int id, String name) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.description = description;
 	}
 
 	public int getId() {
