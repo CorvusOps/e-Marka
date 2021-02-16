@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -18,13 +21,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import domain.Subject;
+import repository.CRUDGrade;
+import repository.CRUDStudent;
+import repository.CRUDSubject;
+
 @SuppressWarnings("serial")
 public class PanelGradeManagement extends JPanel {
 	
 	private DialogViewGrade viewGradeDialog;
 	private JTable jtblGrades;
+	
+	protected CRUDSubject subjectRepository;
+	protected CRUDStudent studentRepository;
+	protected CRUDGrade gradeRepository;
+	
 	protected TemplateGrade gradeTableModel;
-
+	protected JComboBox cmbSubject;
+	
 	public PanelGradeManagement() {
 		setBackground(new Color(255, 255, 255));
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -37,14 +51,7 @@ public class PanelGradeManagement extends JPanel {
 		// Set its GradeManagementFrame reference to this object.
 		viewGradeDialog.gradeManagementFrame = this;
 		/* END OF viewGradeDialog
-		
-		/* updateStudentDialog - the main update dialog form 
-		// Instantiate the updateStudentDialog that we will use
-		updateStudentDialog = new DialogUpdateStudent();
-		// Set its StudentManagementFrame reference to this object.
-		updateStudentDialog.studentManagementFrame = this;
-		/* END OF addStudentDialog */
-		
+			
 		
 		/* jpnlHeader - header labels and buttons placed here. */
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -104,11 +111,18 @@ public class PanelGradeManagement extends JPanel {
 		jpnlButtons.add(jbtnViewGrade);
 		/* END OF jbtnViewGrade */
 		
-		JComboBox cmbSubject = new JComboBox();
-		cmbSubject.setModel(new DefaultComboBoxModel(new String[] {"Select Subject Here"}));
+		cmbSubject = new JComboBox();
 		cmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jpnlButtons.add(cmbSubject);
-		/* END OF jbtnDelete */
+		
+		ItemListener itemListener = new ItemListener() {
+		      public void itemStateChanged(ItemEvent itemEvent) {
+		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
+		    	  gradeTableModel.refreshWithSubject(subject);
+		      }
+		    };
+		    
+		cmbSubject.addItemListener(itemListener);
 		
 		/* jscrlpnMainTable - scrollable container for student JTable */
 		JScrollPane jscrlpnMainTable = new JScrollPane();
@@ -133,15 +147,30 @@ public class PanelGradeManagement extends JPanel {
 		/* END OF jtblStudents */
 	}
 
-	/*
+	
 	public void setStudentRepository(CRUDStudent studentRepository) {
 		this.studentRepository = studentRepository;
 		// Refresh the student table model immediately.
-		studentTableModel.refresh();
+		//studentTableModel.refresh();
 	}
 
 	public void setSubjectRepository(CRUDSubject subjectRepository) {
 		this.subjectRepository = subjectRepository;
 	}
-	*/
+	
+	public void setGradeRepository(CRUDGrade gradeRepository) {
+		this.gradeRepository = gradeRepository;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void refreshSubjectComboBox() {
+		List<Subject> subjectList = subjectRepository.getAll();
+		
+		Subject[] subjectArray = new Subject[subjectList.size()];
+		for(int i = 0; i < subjectList.size(); i++)
+			subjectArray[i] = subjectList.get(i);
+		
+		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
+	
 }

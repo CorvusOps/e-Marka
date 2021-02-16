@@ -1,15 +1,20 @@
 package gui.entity.grade;
 
+import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
-//import domain.Grade;
+import domain.PerformanceTasks;
+import domain.Subject;
+
+import domain.Grade;
 
 @SuppressWarnings("serial")
 public class TemplateGrade extends AbstractTableModel {
 	
 	protected PanelGradeManagement gradeManagementFrame;
-	//private static List<Grade> currentValue;
-	
+	private static List<Grade> currentValue;
+
 
 	@Override
 	public int getColumnCount() {
@@ -106,6 +111,11 @@ public class TemplateGrade extends AbstractTableModel {
 	}
 	
 	*/
+	public void refreshWithSubject(Subject subject) {
+		currentValue = gradeManagementFrame.gradeRepository.getAllBySubjectId(subject);
+		fireTableDataChanged();
+	}
+
 
 
 }

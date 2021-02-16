@@ -2,21 +2,30 @@
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 import gui.FrameMain;
+import repository.CRUDGrade;
 import repository.CRUDPerformanceTasks;
 import repository.CRUDQuarterlyAssessment;
 import repository.CRUDStudent;
 import repository.CRUDSubject;
 import repository.CRUDWrittenWorks;
+import repository.GradePTDAO;
+import repository.GradeQADAO;
+import repository.GradeWWDAO;
 
 
 public class EMarkaApplication {
-	
+
 	public static void main(String[] args) {
+		
 		// Create the datasource
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/student_db");
 		dataSource.setUser("root");
-		dataSource.setPassword("aidenflynn");
+		dataSource.setPassword("root");
+		
+		GradeWWDAO gradeWWDAO = new GradeWWDAO(dataSource);
+		GradePTDAO gradePTDAO = new GradePTDAO(dataSource);
+		GradeQADAO gradeQADAO = new GradeQADAO(dataSource);
 		
 		// Create the repositories
 		CRUDStudent studentRepository = new CRUDStudent(dataSource);
@@ -24,6 +33,8 @@ public class EMarkaApplication {
 		CRUDPerformanceTasks ptRepository = new CRUDPerformanceTasks(dataSource);
 		CRUDQuarterlyAssessment qaRepository = new CRUDQuarterlyAssessment(dataSource);
 		CRUDWrittenWorks wwRepository = new CRUDWrittenWorks(dataSource);
+		CRUDGrade gradeRepository = new CRUDGrade(dataSource, gradeWWDAO, gradePTDAO, gradeQADAO);
+		
 				
 		// Create Student Management Panel
 		gui.entity.student.PanelStudentManagement studentManagementPanel = 
@@ -43,6 +54,10 @@ public class EMarkaApplication {
 		gui.entity.grade.PanelGradeManagement gradeManagementPanel = 
 				new gui.entity.grade.PanelGradeManagement();
 		//Wire the repository that the grade management needs
+		gradeManagementPanel.setStudentRepository(studentRepository);
+		gradeManagementPanel.setSubjectRepository(subjectRepository);
+		gradeManagementPanel.setGradeRepository(gradeRepository);
+		gradeManagementPanel.refreshSubjectComboBox();
 		
 		// Create Written Works Component Management Panel
 		gui.entity.component.PanelComponentWW wwComponentPanel = 
