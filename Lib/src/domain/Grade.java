@@ -5,19 +5,19 @@ import java.util.List;
 public class Grade {
 	
 	private int subject_id;
-	private int studentNumber;
+	private String studentNumber;
 	private String studentName;
 	private List<GradeWW> gradeWW;
 	private List<GradePT> gradePT;
 	private List<GradeQA> gradeQA;
 	
-	public Grade(int subject_id, int studentNumber, String studentName, List<GradeWW> gradesWW, List<GradePT> gradePT,
+	public Grade(int subject_id, String studentNumber, String studentName, List<GradeWW> gradeWW, List<GradePT> gradePT,
 			List<GradeQA> gradeQA) {
 		super();
 		this.subject_id = subject_id;
 		this.studentNumber = studentNumber;
 		this.studentName = studentName;
-		this.gradeWW = gradesWW;
+		this.gradeWW = gradeWW;
 		this.gradePT = gradePT;
 		this.gradeQA = gradeQA;
 	}
@@ -35,11 +35,11 @@ public class Grade {
 		this.subject_id = subject_id;
 	}
 
-	public int getStudentNumber() {
+	public String getStudentNumber() {
 		return studentNumber;
 	}
 
-	public void setStudentNumber(int studentNumber) {
+	public void setStudentNumber(String studentNumber) {
 		this.studentNumber = studentNumber;
 	}
 
@@ -55,8 +55,8 @@ public class Grade {
 		return gradeWW;
 	}
 
-	public void setGradeWW(List<GradeWW> gradesWW) {
-		this.gradeWW = gradesWW;
+	public void setGradeWW(List<GradeWW> gradeWW) {
+		this.gradeWW = gradeWW;
 	}
 
 	public List<GradePT> getGradePT() {
