@@ -88,13 +88,32 @@ public class CRUDWrittenWorks {
 		try(
 			Connection connection = dataSource.getConnection();
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO writtenWorks VALUES (null, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO writtenWorks VALUES (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 			
 			insertStatement.setString(1, writtenWorks.getwrittenWorks_title());
 			insertStatement.setFloat(2, writtenWorks.getwrittenWorks_total());
 			insertStatement.setInt(3, writtenWorks.getSubject().getId());
 			
 			insertStatement.execute();
+			
+			ResultSet generatedKeys = insertStatement.getGeneratedKeys();
+			
+			int generatedId = 0;
+			if(generatedKeys.next()) {
+				generatedId = generatedKeys.getInt(1);
+			}
+			
+			generatedKeys.close();
+			
+			PreparedStatement insertZero =
+					connection.prepareStatement("INSERT INTO gradeww(student_number, writtenWorks_id, gradeWW)" + 
+							" SELECT student_number, ? , 0 FROM student WHERE subject_id = ?");
+			
+			insertZero.setInt(1, generatedId);
+			insertZero.setInt(2, writtenWorks.getSubject().getId());
+			
+			insertZero.execute();
+			insertZero.close();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
