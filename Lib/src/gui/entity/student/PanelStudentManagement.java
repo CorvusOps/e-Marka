@@ -123,7 +123,8 @@ public class PanelStudentManagement extends JPanel {
 		jbtnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addStudentDialog.refreshSubjectComboBox();
+				Subject subject = ((Subject) cmbSubject.getSelectedItem());
+				addStudentDialog.setSelectedSubject(subject);
 				addStudentDialog.setVisible(true);
 			}
 		});

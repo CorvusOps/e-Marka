@@ -21,7 +21,7 @@ public class EMarkaApplication {
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/student_db");
 		dataSource.setUser("root");
-		dataSource.setPassword("root");
+		dataSource.setPassword("aidenflynn");
 		
 		GradeWWDAO gradeWWDAO = new GradeWWDAO(dataSource);
 		GradePTDAO gradePTDAO = new GradePTDAO(dataSource);
@@ -57,6 +57,9 @@ public class EMarkaApplication {
 		gradeManagementPanel.setStudentRepository(studentRepository);
 		gradeManagementPanel.setSubjectRepository(subjectRepository);
 		gradeManagementPanel.setGradeRepository(gradeRepository);
+		gradeManagementPanel.setPTRepository(ptRepository);
+		gradeManagementPanel.setQARepository(qaRepository);
+		gradeManagementPanel.setWWRepository(wwRepository);
 		gradeManagementPanel.refreshSubjectComboBox();
 		
 		// Create Written Works Component Management Panel
@@ -72,6 +75,7 @@ public class EMarkaApplication {
 				new gui.entity.component.PanelComponentPT();
 		ptComponentPanel.setPTRepository(ptRepository);
 		ptComponentPanel.setSubjectRepository(subjectRepository);
+		ptComponentPanel.setStudentRepository(studentRepository);
 		ptComponentPanel.refreshSubjectComboBox();
 		// Wire the repository that the component management needs
 		
