@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import domain.Grade;
 import domain.PerformanceTasks;
 import domain.QuarterlyAssessment;
 import domain.Subject;
 import domain.WrittenWorks;
-import domain.Grade;
 
 @SuppressWarnings("serial")
 public class TemplateGrade extends AbstractTableModel {
@@ -105,6 +105,19 @@ public class TemplateGrade extends AbstractTableModel {
 
 	}
 	
+	/**
+	 * add field scope global
+	 * list of performanceTasks
+	 * list of writtenWorks
+	 * list of quarterlyAssessment
+	 *  		actual info 
+	 * refresh
+	 * 			call then i choose u 
+	 * 			get by subId/crud
+	 * 			call in get column name and get row name
+	 * 
+	 */
+
 	public void refreshWithSubject(Subject subject) {
 		currentValue = gradeManagementFrame.gradeRepository.getAllBySubjectId(subject);
 		writtenWorkList = gradeManagementFrame.wwRepository.getByWWSubjectID(subject);
