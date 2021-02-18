@@ -16,7 +16,7 @@ public class GradeWWDAO {
     public GradeWWDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    public List<GradeWW> getAllByStudentNumber(int studentNumber) {
+    public List<GradeWW> getAllByStudentNumber(String studentNumber) {
         List<GradeWW> GradeWWList = new ArrayList<>();
         
         try(Connection connection = dataSource.getConnection();

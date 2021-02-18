@@ -20,7 +20,7 @@ public class GradeQADAO {
         this.dataSource = dataSource;
     }
     
-    public List<GradeQA> getAllByStudentNumber(int studentNumber) {
+    public List<GradeQA> getAllByStudentNumber(String studentNumber) {
         List<GradeQA> GradeQAList = new ArrayList<>();
         
         try(Connection connection = dataSource.getConnection();
