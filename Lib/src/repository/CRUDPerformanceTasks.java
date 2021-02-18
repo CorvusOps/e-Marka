@@ -88,13 +88,33 @@ public class CRUDPerformanceTasks {
 		try(
 			Connection connection = dataSource.getConnection();
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO performanceTasks VALUES (null, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO performanceTasks VALUES (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 			
 			insertStatement.setString(1, performanceTasks.getPerformanceTasks_title());
 			insertStatement.setFloat(2, performanceTasks.getPerformanceTasks_total());
 			insertStatement.setInt(3, performanceTasks.getSubject().getId());
 			
 			insertStatement.execute();
+			
+			ResultSet generatedKeys = insertStatement.getGeneratedKeys();
+			
+			int generatedId = 0;
+			if(generatedKeys.next()) {
+				generatedId = generatedKeys.getInt(1);
+			}
+			
+			generatedKeys.close();
+			
+			PreparedStatement insertZero =
+					connection.prepareStatement("INSERT INTO gradept(student_number, performanceTasks_id, gradePT)" + 
+							" SELECT student_number, ? , 0 FROM student WHERE subject_id = ?");
+			
+			insertZero.setInt(1, generatedId);
+			insertZero.setInt(2, performanceTasks.getSubject().getId());
+			
+			insertZero.execute();
+			insertZero.close();
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

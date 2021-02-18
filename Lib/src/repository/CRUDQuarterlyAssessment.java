@@ -87,13 +87,33 @@ public class CRUDQuarterlyAssessment {
 		try(
 			Connection connection = dataSource.getConnection();
 			PreparedStatement insertStatement =
-					connection.prepareStatement("INSERT INTO quarterlyAssessment VALUES (null, ?, ?, ?)")) {
+					connection.prepareStatement("INSERT INTO quarterlyAssessment VALUES (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 			
 			insertStatement.setString(1, quarterlyAssessment.getquarterlyAssessment_title());
 			insertStatement.setFloat(2, quarterlyAssessment.getquarterlyAssessment_total());
 			insertStatement.setInt(3, quarterlyAssessment.getSubject().getId());
 			
 			insertStatement.execute();
+			
+			ResultSet generatedKeys = insertStatement.getGeneratedKeys();
+			
+			int generatedId = 0;
+			if(generatedKeys.next()) {
+				generatedId = generatedKeys.getInt(1);
+			}
+			
+			generatedKeys.close();
+			
+			PreparedStatement insertZero =
+					connection.prepareStatement("INSERT INTO gradeqa(student_number, quarterlyAssessment_id, gradeQA)" + 
+							" SELECT student_number, ? , 0 FROM student WHERE subject_id = ?");
+			
+			insertZero.setInt(1, generatedId);
+			insertZero.setInt(2, quarterlyAssessment.getSubject().getId());
+			
+			insertZero.execute();
+			insertZero.close();
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
