@@ -16,7 +16,7 @@ public class GradePTDAO {
     public GradePTDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    public List<GradePT> getAllByStudentNumber(int studentNumber) {
+    public List<GradePT> getAllByStudentNumber(String studentNumber) {
         List<GradePT> GradePTList = new ArrayList<>();
         
         try(Connection connection = dataSource.getConnection();
