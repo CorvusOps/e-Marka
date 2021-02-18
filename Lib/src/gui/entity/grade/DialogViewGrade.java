@@ -27,7 +27,7 @@ public class DialogViewGrade extends JDialog {
 		/* This Dialog's Properties */
 		setPreferredSize(new Dimension(500, 300));
 		setMinimumSize(new Dimension(500, 300));
-		setTitle("Add Student");
+		setTitle("Update Grade");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		/* END OF jtxtfldSection */
@@ -71,5 +71,21 @@ public class DialogViewGrade extends JDialog {
 		/* END OF jbtnCancel */
 		
 	}
+	
+	public void gradeList() {
+		
+	}
+	
+	/**
+	 * Initialize a method 
+	 * 		accept a grade object 
+	 * 		OK: step 1: retrieve the grade of student from crudgrade by studentNumber
+	 * 		OK: step 2: retrieve components 
+	 * 		step 3: loop the component objects / make jlabel = title and jtext field = actual grade
+	 * 		step 4: set text / jtextfield at current grade at the component 
+	 * 		step 6: revalidated hierarchy 
+	 * 
+	 *  
+	 * */
 	
 }
