@@ -39,7 +39,6 @@ private final JPanel contentPanel = new JPanel();
 	private JTextField jtxtfldLastName;
 	private JTextField jtxtfldAddress;
 	private JTextField jtxtfldSection;
-	private JComboBox<Subject> jcmbSubject;
 
 	private Subject subject;
 
@@ -57,9 +56,9 @@ private final JPanel contentPanel = new JPanel();
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		/* END OF jtxtfldStudentNumber */
 	
@@ -160,7 +159,7 @@ private final JPanel contentPanel = new JPanel();
 		jlblSection.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		GridBagConstraints gbc_jlblSection = new GridBagConstraints();
 		gbc_jlblSection.anchor = GridBagConstraints.EAST;
-		gbc_jlblSection.insets = new Insets(0, 0, 5, 5);
+		gbc_jlblSection.insets = new Insets(0, 0, 0, 5);
 		gbc_jlblSection.gridx = 0;
 		gbc_jlblSection.gridy = 4;
 		contentPanel.add(jlblSection, gbc_jlblSection);
@@ -171,28 +170,10 @@ private final JPanel contentPanel = new JPanel();
 		jtxtfldSection.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jtxtfldSection.setColumns(10);
 		GridBagConstraints gbc_jtxtfldSection = new GridBagConstraints();
-		gbc_jtxtfldSection.insets = new Insets(0, 0, 5, 0);
 		gbc_jtxtfldSection.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtfldSection.gridx = 1;
 		gbc_jtxtfldSection.gridy = 4;
 		contentPanel.add(jtxtfldSection, gbc_jtxtfldSection);
-		
-		JLabel jlblSubject = new JLabel("Subject:");
-		jlblSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		GridBagConstraints gbc_jlblSubject = new GridBagConstraints();
-		gbc_jlblSubject.anchor = GridBagConstraints.EAST;
-		gbc_jlblSubject.insets = new Insets(0, 0, 0, 5);
-		gbc_jlblSubject.gridx = 0;
-		gbc_jlblSubject.gridy = 5;
-		contentPanel.add(jlblSubject, gbc_jlblSubject);
-		
-		jcmbSubject = new JComboBox<>();
-		jcmbSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		GridBagConstraints gbc_jcmbSubject = new GridBagConstraints();
-		gbc_jcmbSubject.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jcmbSubject.gridx = 1;
-		gbc_jcmbSubject.gridy = 5;
-		contentPanel.add(jcmbSubject, gbc_jcmbSubject);
 		/* END OF jtxtfldSection */
 	
 		/* jpnlButtons - button actions panel */
@@ -217,14 +198,12 @@ private final JPanel contentPanel = new JPanel();
 								jtxtfldLastName.getText(),
 								jtxtfldAddress.getText(),
 								jtxtfldSection.getText(),
-								(Subject) jcmbSubject.getSelectedItem());
+								(Subject) subject);
 
 				clearFields();
 				studentManagementFrame.studentRepository.save(student);
 				JOptionPane.showMessageDialog(null, "Successfully saved student");
 				studentManagementFrame.studentTableModel.refreshWithSubject(subject);
-				
-				clearFields();
 				setVisible(false);
 			}
 		});
@@ -255,16 +234,6 @@ private final JPanel contentPanel = new JPanel();
 		jtxtfldLastName.setText("");
 		jtxtfldAddress.setText("");
 		jtxtfldSection.setText("");
-	}
-	
-	public void refreshSubjectComboBox() {
-		List<Subject> subjectList = studentManagementFrame.subjectRepository.getAll();
-		
-		Subject[] subjectArray = new Subject[subjectList.size()];
-		for(int i = 0; i < subjectList.size(); i++)
-			subjectArray[i] = subjectList.get(i);
-		
-		jcmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
 	}
 	
 	public void setSelectedSubject(Subject subject) {
