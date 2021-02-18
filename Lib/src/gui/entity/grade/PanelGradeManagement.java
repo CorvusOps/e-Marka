@@ -24,8 +24,11 @@ import javax.swing.border.EmptyBorder;
 import domain.Grade;
 import domain.Subject;
 import repository.CRUDGrade;
+import repository.CRUDPerformanceTasks;
+import repository.CRUDQuarterlyAssessment;
 import repository.CRUDStudent;
 import repository.CRUDSubject;
+import repository.CRUDWrittenWorks;
 
 @SuppressWarnings("serial")
 public class PanelGradeManagement extends JPanel {
@@ -36,6 +39,9 @@ public class PanelGradeManagement extends JPanel {
 	protected CRUDSubject subjectRepository;
 	protected CRUDStudent studentRepository;
 	protected CRUDGrade gradeRepository;
+	protected CRUDPerformanceTasks ptRepository;
+	protected CRUDQuarterlyAssessment qaRepository;
+	protected CRUDWrittenWorks wwRepository;
 	
 	protected TemplateGrade gradeTableModel;
 	protected JComboBox cmbSubject;
@@ -163,6 +169,18 @@ public class PanelGradeManagement extends JPanel {
 	
 	public void setGradeRepository(CRUDGrade gradeRepository) {
 		this.gradeRepository = gradeRepository;
+	}
+	
+	public void setPTRepository(CRUDPerformanceTasks ptRepository) {
+		this.ptRepository = ptRepository;
+	}
+	
+	public void setQARepository(CRUDQuarterlyAssessment qaRepository) {
+		this.qaRepository = qaRepository;
+	}
+	
+	public void setWWRepository(CRUDWrittenWorks wwRepository) {
+		this.wwRepository = wwRepository;
 	}
 	
 	@SuppressWarnings("unchecked")

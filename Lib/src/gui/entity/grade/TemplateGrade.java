@@ -5,8 +5,9 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import domain.PerformanceTasks;
+import domain.QuarterlyAssessment;
 import domain.Subject;
-
+import domain.WrittenWorks;
 import domain.Grade;
 
 @SuppressWarnings("serial")
@@ -14,11 +15,33 @@ public class TemplateGrade extends AbstractTableModel {
 	
 	protected PanelGradeManagement gradeManagementFrame;
 	private static List<Grade> currentValue;
+	private List<WrittenWorks> writtenWorkList;
+	private List<PerformanceTasks> performanceTaskList;
+	private List<QuarterlyAssessment> quarterlyAssessmentList;
 
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		
+		int finalSum = 0;
+		finalSum += 2;
+		
+		if(writtenWorkList == null)
+			finalSum += 0;
+		else
+			finalSum += writtenWorkList.size();
+		
+		if(performanceTaskList == null)
+			finalSum += 0;
+		else
+			finalSum += performanceTaskList.size();
+		
+		if(quarterlyAssessmentList == null)
+			finalSum += 0;
+		else
+			finalSum += quarterlyAssessmentList.size();
+		
+		return finalSum;
 	}
 	
 	/**
@@ -26,28 +49,25 @@ public class TemplateGrade extends AbstractTableModel {
 	 */
 	@Override
 	public String getColumnName(int columnIndex) {
-		switch(columnIndex) {
 		
-		// First Column Header
-		case 0:
+		if(columnIndex == 0)
 			return "#";
-			
-		// Second Column Header
-		case 1:
+
+		else if(columnIndex == 1)
 			return "Name";
-				
-		// Third Column Header
-		case 2:
-			return "Sample Test # 1";
-			
-		// Fourth Column Header
-		case 3:
-			return "Sample Test # 2";
-			
-		default:
-			return null;
+
+		else if(columnIndex >= 2 && columnIndex < (writtenWorkList.size() + 2))
+			return writtenWorkList.get(columnIndex - 2).getwrittenWorks_title();
 		
-		}
+		else if(columnIndex >= writtenWorkList.size() + 2 && columnIndex < (writtenWorkList.size() + performanceTaskList.size() + 2))
+			return performanceTaskList.get(columnIndex - (writtenWorkList.size() + 2)).getPerformanceTasks_title();
+		
+		else if(columnIndex >= writtenWorkList.size() + performanceTaskList.size() + 2 && columnIndex < (writtenWorkList.size() + performanceTaskList.size() + quarterlyAssessmentList.size() + 2))
+			return quarterlyAssessmentList.get(columnIndex - (writtenWorkList.size() + performanceTaskList.size() + 2)).getquarterlyAssessment_title();
+		
+		else
+			return null;
+
 	}
 
 	@Override
@@ -63,38 +83,34 @@ public class TemplateGrade extends AbstractTableModel {
 		if(currentValue == null)
 			return null;
 		
-		// Get the student object at the specified row,
-		// which coincidentally, is the same index in the currentValue List.
 		Grade grade = currentValue.get(rowIndex);
 		
-		// Depending on what columnIndex is given,
-		// return the proper field of the student
-		switch(columnIndex) {
-		
-		// First Column - student number
-		case 0:
+		if(columnIndex == 0)
 			return grade.getStudentNumber();
-			
-		// Second Column - name
-		case 1:
+
+		else if(columnIndex == 1)
 			return grade.getStudentName();
-			
-		// Third Column - address
-		case 2:
-			return null;
-			
-		// Fourth Column - section
-		case 3:
-			return null;
+
+		else if(columnIndex >= 2 && columnIndex < (writtenWorkList.size() + 2))
+			return grade.getGradeWW().get(columnIndex - 2).getGradesWW();
 		
-		default:
-			return null;
+		else if(columnIndex >= writtenWorkList.size() + 2 && columnIndex < (writtenWorkList.size() + performanceTaskList.size() + 2))
+			return grade.getGradePT().get(columnIndex - (writtenWorkList.size() + 2)).getGradesPT();
 		
-		}
+		else if(columnIndex >= writtenWorkList.size() + performanceTaskList.size() + 2 && columnIndex < (writtenWorkList.size() + performanceTaskList.size() + quarterlyAssessmentList.size() + 2))
+			return grade.getGradeQA().get(columnIndex - (writtenWorkList.size() + performanceTaskList.size() + 2)).getGradesQA();
+		
+		else
+			return null;
+
 	}
 	
 	public void refreshWithSubject(Subject subject) {
 		currentValue = gradeManagementFrame.gradeRepository.getAllBySubjectId(subject);
+		writtenWorkList = gradeManagementFrame.wwRepository.getByWWSubjectID(subject);
+		performanceTaskList = gradeManagementFrame.ptRepository.getByPTSubjectID(subject);
+		quarterlyAssessmentList = gradeManagementFrame.qaRepository.getByQASubjectID(subject);
+		fireTableStructureChanged();
 		fireTableDataChanged();
 	}
 
