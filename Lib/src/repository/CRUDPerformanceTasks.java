@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import domain.PerformanceTasks;
 import domain.Subject;
+import domain.WrittenWorks;
 
 public class CRUDPerformanceTasks {
 	
@@ -53,6 +55,53 @@ public class CRUDPerformanceTasks {
 		}
 		
 		return performanceTasksList;
+	}
+	
+	public List<PerformanceTasks> getAll(List<Integer> ids){
+		if(ids == null || ids.size() <= 0)
+			throw new IllegalArgumentException("Invalid ids given.");
+		
+		List<PerformanceTasks> performanceTaskList = new ArrayList<>();
+		
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM performancetasks LEFT JOIN subject ON subject.id = performanceTasks.performanceTasks_subjectid WHERE id IN (");
+		Iterator<Integer> idsIterator = ids.iterator();
+		queryBuilder.append(idsIterator.next());
+		while(idsIterator.hasNext()) {
+			queryBuilder.append(",");
+			queryBuilder.append(idsIterator.next());
+		}
+		queryBuilder.append(")");
+		
+		try(
+				Connection connection = dataSource.getConnection();
+				Statement retrievePerformanceTaskStatement = connection.createStatement();
+				ResultSet performanceTasksResultSet = retrievePerformanceTaskStatement.executeQuery(queryBuilder.toString())) {
+				
+			while(performanceTasksResultSet.next()) {
+				
+				Subject subject = null;
+				
+				int performanceTasks_id = performanceTasksResultSet.getInt(1);
+				String performanceTasks_title = performanceTasksResultSet.getString(2);
+				float performanceTasks_total = performanceTasksResultSet.getFloat(3);
+				int performanceTasks_subjectid = performanceTasksResultSet.getInt(4),
+					subject_id = performanceTasksResultSet.getInt(5);
+				String subject_name = performanceTasksResultSet.getString(6),
+					   subject_description = performanceTasksResultSet.getString(7);
+				
+				subject = new Subject(subject_id, subject_name, subject_description);
+				
+				PerformanceTasks performanceTasks = new PerformanceTasks(
+												performanceTasks_id, performanceTasks_title, performanceTasks_total, subject);
+				
+				performanceTaskList.add(performanceTasks);
+			}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		
+		
+		return performanceTaskList;
 	}
 	
 	public PerformanceTasks getByPerformanceTasksId(int performanceTasks_id) {
