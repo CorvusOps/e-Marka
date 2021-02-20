@@ -108,9 +108,10 @@ public class PanelGradeManagement extends JPanel {
 				}
 				
 				Subject subject = ((Subject) cmbSubject.getSelectedItem());
-				int studentNumber = (int) gradeTableModel.getValueAt(rowIndex, 0);
-				//Grade grade = gradeRepository.getAllBySubjectId(subject);
+				String studentNumber = (String) gradeTableModel.getValueAt(rowIndex, 0);
+				Grade grade = gradeRepository.getByStudentNumberID(studentNumber);
 			
+				viewGradeDialog.initialize(grade);
 				// give set up  method here ??
 				
 				//viewGradeDialog.initializeDialog(student);
