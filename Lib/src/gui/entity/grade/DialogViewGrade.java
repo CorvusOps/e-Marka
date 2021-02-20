@@ -9,9 +9,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -44,6 +46,8 @@ public class DialogViewGrade extends JDialog {
 	private Map<Integer, JTextField> writtenWorkFields;
 	private Map<Integer, JTextField> performanceTaskFields;
 	private Map<Integer, JTextField> quarterlyAssessmentFields;
+	
+	private Grade boundGrade;
 
 	/**
 	 * Create the dialog.
@@ -85,17 +89,36 @@ public class DialogViewGrade extends JDialog {
 		/* END OF jpnlButtons */
 
 		/* jbtnOk - save student button */
-		JButton jbtnOk = new JButton("OK");
-		jbtnOk.setActionCommand("OK");
-		jpnlButtons.add(jbtnOk);
+		JButton jbtnSave = new JButton("SAVE");
+		jbtnSave.setActionCommand("SAVE");
+		jpnlButtons.add(jbtnSave);
 		// When this button is clicked, execute actionPerformed
-		jbtnOk.addActionListener(new ActionListener() {
+		jbtnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
+				List<GradeWW> updatedGradeWW = new ArrayList<>();
+				Set<Integer> writtenWorkIds = writtenWorkFields.keySet();
+				for(Integer writtenWorkId : writtenWorkIds)
+					updatedGradeWW.add(new GradeWW(0, 0, writtenWorkId, Integer.parseInt(writtenWorkFields.get(writtenWorkId).getText())));
+				boundGrade.setGradeWW(updatedGradeWW);
+				
+				List<GradePT> updatedGradePT = new ArrayList<>();
+				Set<Integer> performanceTaskIds = performanceTaskFields.keySet();
+				for(Integer performanceTaskId : performanceTaskIds)
+					updatedGradePT.add(new GradePT(0, 0, performanceTaskId, Integer.parseInt(performanceTaskFields.get(performanceTaskId).getText())));
+				boundGrade.setGradePT(updatedGradePT);
+				
+				List<GradeQA> updatedGradeQA = new ArrayList<>();
+				Set<Integer> quarterlyAssessmentIds = quarterlyAssessmentFields.keySet();
+				for(Integer quarterlyAssessmentId : quarterlyAssessmentIds)
+					updatedGradeQA.add(new GradeQA(0, 0, quarterlyAssessmentId, Integer.parseInt(quarterlyAssessmentFields.get(quarterlyAssessmentId).getText())));
+				boundGrade.setGradeQA(updatedGradeQA);
+			
+				gradeManagementFrame.gradeRepository.update(boundGrade);
 			}
 		});
-		getRootPane().setDefaultButton(jbtnOk);
+		getRootPane().setDefaultButton(jbtnSave);
 		/* END OF jbtnOk */
 
 		/* jbtnCancel - hides this dialog box */
@@ -103,6 +126,7 @@ public class DialogViewGrade extends JDialog {
 		jbtnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				jpnlViewGrade.removeAll();
 				setVisible(false);
 			}
 		});
@@ -111,6 +135,8 @@ public class DialogViewGrade extends JDialog {
 	}
 
 	public void initialize(Grade grade) {
+		this.boundGrade = grade;
+		
 		jpnlViewGrade.removeAll();
 
 		JLabel lblFirstName = new JLabel("Name: ");
@@ -121,6 +147,16 @@ public class DialogViewGrade extends JDialog {
 		gbc_lblFirstName.gridy = 0;
 		gbc_lblFirstName.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(lblFirstName, gbc_lblFirstName);
+		/* END OF lblFirstName */
+		
+		JLabel lblSubject = new JLabel("Grades in ");
+		lblSubject.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_lblSubject = new GridBagConstraints();
+		gbc_lblSubject.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSubject.gridx = 0;
+		gbc_lblSubject.gridy = 1;
+		gbc_lblSubject.insets = new Insets(10, 0, 0, 0);
+		jpnlViewGrade.add(lblSubject, gbc_lblSubject);
 		/* END OF lblFirstName */
 
 		/**
@@ -164,11 +200,11 @@ public class DialogViewGrade extends JDialog {
 		GridBagConstraints gbc_jlblWrittenWorkHeader = new GridBagConstraints();
 		gbc_jlblWrittenWorkHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWrittenWorkHeader.gridx = 0;
-		gbc_jlblWrittenWorkHeader.gridy = 1;
+		gbc_jlblWrittenWorkHeader.gridy = 2;
 		gbc_jlblWrittenWorkHeader.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblWrittenWorkHeader, gbc_jlblWrittenWorkHeader);
 
-		int currentRow = 2;
+		int currentRow = 3;
 		Map<Integer, GradeWW> gradeWWMap = new HashMap<>();
 		for (GradeWW gradeWW : grade.getGradeWW())
 			gradeWWMap.put(gradeWW.getWrittenWorks_id(), gradeWW);
@@ -190,6 +226,7 @@ public class DialogViewGrade extends JDialog {
 			gbc_jtxtWrittenWorkGrade.gridx = 1;
 			gbc_jtxtWrittenWorkGrade.gridy = currentRow;
 			gbc_jtxtWrittenWorkGrade.insets = new Insets(10, 10, 0, 10);
+			
 			jpnlViewGrade.add(jtxtWrittenWorkGrade, gbc_jtxtWrittenWorkGrade);
 			writtenWorkFields.put(writtenWork.getwrittenWorks_id(), jtxtWrittenWorkGrade);
 
@@ -197,19 +234,17 @@ public class DialogViewGrade extends JDialog {
 		}
 
 		// computation
-		List<PerformanceTasks> performanceTasks = gradeManagementFrame.ptRepository.getAll(grade.getGradePT().stream()
-				.map(gradePT -> gradePT.getPerformanceTasks_id()).collect(Collectors.toList()));
-		Map<Integer, PerformanceTasks> performanceTasksMap = new HashMap<>();
+		List<PerformanceTasks> performanceTasks = gradeManagementFrame.ptRepository.getAll(
+				grade.getGradePT().stream().map(gradePT -> gradePT.getPerformanceTasks_id()).collect(Collectors.toList()));
+		Map<Integer, PerformanceTasks> performanceTaskMap = new HashMap<>();
 		for (PerformanceTasks performanceTask : performanceTasks)
-			performanceTasksMap.put(performanceTask.getPerformanceTasks_id(), performanceTask);
+			performanceTaskMap.put(performanceTask.getPerformanceTasks_id(), performanceTask);
 		int performanceTaskTotalGrade = 0, performanceTaskComponentsTotal = 0;
 		for (GradePT gradePT : grade.getGradePT()) {
 			performanceTaskTotalGrade += gradePT.getGradesPT();
-			performanceTaskComponentsTotal += performanceTasksMap.get(gradePT.getPerformanceTasks_id())
-					.getPerformanceTasks_total();
+			performanceTaskComponentsTotal += performanceTaskMap.get(gradePT.getPerformanceTasks_id()).getPerformanceTasks_total();
 		}
-		double performanceTaskWeightedGrade = ((double) performanceTaskTotalGrade / performanceTaskComponentsTotal)
-				* 50;
+		double performanceTaskWeightedGrade = ((double) performanceTaskTotalGrade / performanceTaskComponentsTotal) * 50;
 
 		// UI Stuff
 		JLabel jlblPerformanceTaskHeader = new JLabel("PerformanceTasks");
@@ -242,6 +277,7 @@ public class DialogViewGrade extends JDialog {
 			gbc_jtxtPerformanceTaskGrade.gridx = 1;
 			gbc_jtxtPerformanceTaskGrade.gridy = currentRow;
 			gbc_jtxtPerformanceTaskGrade.insets = new Insets(10, 10, 0, 10);
+			
 			jpnlViewGrade.add(jtxtPerformanceTaskGrade, gbc_jtxtPerformanceTaskGrade);
 			performanceTaskFields.put(performanceTask.getPerformanceTasks_id(), jtxtPerformanceTaskGrade);
 
@@ -295,7 +331,7 @@ public class DialogViewGrade extends JDialog {
 			gbc_jtxtQuarterlyAssessmentGrade.gridy = currentRow;
 			gbc_jtxtQuarterlyAssessmentGrade.insets = new Insets(10, 10, 0, 10);
 			jpnlViewGrade.add(jtxtQuarterlyAssessmentGrade, gbc_jtxtQuarterlyAssessmentGrade);
-			writtenWorkFields.put(quarterlyAssessments.getquarterlyAssessment_id(), jtxtQuarterlyAssessmentGrade);
+			quarterlyAssessmentFields.put(quarterlyAssessments.getquarterlyAssessment_id(), jtxtQuarterlyAssessmentGrade);
 
 			currentRow++;
 		}
