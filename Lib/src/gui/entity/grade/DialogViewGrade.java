@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -30,6 +31,7 @@ import domain.GradeQA;
 import domain.GradeWW;
 import domain.PerformanceTasks;
 import domain.QuarterlyAssessment;
+import domain.Subject;
 import domain.WrittenWorks;
 
 @SuppressWarnings("serial")
@@ -42,6 +44,7 @@ public class DialogViewGrade extends JDialog {
 	protected PanelGradeManagement gradeManagementFrame;
 
 	private JPanel jpnlViewGrade;
+	
 
 	private Map<Integer, JTextField> writtenWorkFields;
 	private Map<Integer, JTextField> performanceTaskFields;
@@ -96,6 +99,7 @@ public class DialogViewGrade extends JDialog {
 		jbtnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Subject subject = (Subject) gradeManagementFrame.cmbSubject.getSelectedItem();
 				
 				List<GradeWW> updatedGradeWW = new ArrayList<>();
 				Set<Integer> writtenWorkIds = writtenWorkFields.keySet();
@@ -116,6 +120,10 @@ public class DialogViewGrade extends JDialog {
 				boundGrade.setGradeQA(updatedGradeQA);
 			
 				gradeManagementFrame.gradeRepository.update(boundGrade);
+				
+				JOptionPane.showMessageDialog(null, "Successfully updated grade");
+				setVisible(false);
+				gradeManagementFrame.gradeTableModel.refreshWithSubject(subject);
 			}
 		});
 		getRootPane().setDefaultButton(jbtnSave);
@@ -149,7 +157,7 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(lblFirstName, gbc_lblFirstName);
 		/* END OF lblFirstName */
 		
-		JLabel lblSubject = new JLabel("Grades in ");
+		JLabel lblSubject = new JLabel("Grades in " + gradeManagementFrame.cmbSubject.getSelectedItem());
 		lblSubject.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblSubject = new GridBagConstraints();
 		gbc_lblSubject.fill = GridBagConstraints.HORIZONTAL;
