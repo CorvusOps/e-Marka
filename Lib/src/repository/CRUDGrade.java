@@ -77,7 +77,7 @@ public class CRUDGrade {
 	        
 	        try(Connection connection = dataSource.getConnection();
 	            Statement selectStatement = connection.createStatement();
-	            ResultSet resultSet = selectStatement.executeQuery("SELECT * FROM student" +
+	            ResultSet resultSet = selectStatement.executeQuery("SELECT * FROM student " +
 	            									"WHERE student_number = '" + studentNumber + "'")) {
 	        	// what to get here again ???
 	        	if(resultSet.next()) {

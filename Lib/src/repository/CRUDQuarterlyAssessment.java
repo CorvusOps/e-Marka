@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import domain.QuarterlyAssessment;
 import domain.Subject;
+import domain.WrittenWorks;
 
 public class CRUDQuarterlyAssessment {
 	
@@ -54,6 +56,50 @@ public class CRUDQuarterlyAssessment {
 		return quarterlyAssessmentList;
 	}
 	
+	public List<QuarterlyAssessment> getAll(List<Integer> ids) {
+		if(ids == null || ids.size() <= 0)
+			throw new IllegalArgumentException("Invalid ids given.");
+		
+		List<QuarterlyAssessment> quarterlyAssessmentList = new ArrayList<>();
+		
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM quarterlyassessment LEFT JOIN subject ON subject.id = quarterlyAssessment.quarterlyAssessment_subjectid WHERE id IN (");
+		Iterator<Integer> idsIterator = ids.iterator();
+		queryBuilder.append(idsIterator.next());
+		while(idsIterator.hasNext()) {
+			queryBuilder.append(",");
+			queryBuilder.append(idsIterator.next());
+		}
+		queryBuilder.append(")");
+		
+		try(
+				Connection connection = dataSource.getConnection();
+				Statement retrieveWrittenWorkStatement = connection.createStatement();
+				ResultSet quarterlyAssessmentResultSet = retrieveWrittenWorkStatement.executeQuery(queryBuilder.toString())) {
+				
+			while(quarterlyAssessmentResultSet.next()) {
+				Subject subject = null;
+				
+				int quarterlyAssessment_id = quarterlyAssessmentResultSet.getInt(1);
+				String quarterlyAssessment_title = quarterlyAssessmentResultSet.getString(2);
+				float quarterlyAssessment_total = quarterlyAssessmentResultSet.getFloat(3);
+				int quarterlyAssessment_subjectid = quarterlyAssessmentResultSet.getInt(4),
+					subject_id = quarterlyAssessmentResultSet.getInt(5);
+				String subject_name = quarterlyAssessmentResultSet.getString(6),
+					   subject_description = quarterlyAssessmentResultSet.getString(7);
+				
+				subject = new Subject(subject_id, subject_name, subject_description);
+				
+				QuarterlyAssessment quarterlyAssessment = new QuarterlyAssessment(quarterlyAssessment_id, quarterlyAssessment_title, quarterlyAssessment_total, subject);
+				
+				quarterlyAssessmentList.add(quarterlyAssessment);
+			}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		
+		return quarterlyAssessmentList;
+	}
+ 	
 	public QuarterlyAssessment getByquarterlyAssessmentId(int quarterlyAssessment_id) {
 		QuarterlyAssessment quarterlyAssessment = null;
 		Subject subject = null;
