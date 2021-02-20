@@ -1,6 +1,4 @@
-
 import com.mysql.cj.jdbc.MysqlDataSource;
-
 import gui.FrameMain;
 import repository.CRUDGrade;
 import repository.CRUDPerformanceTasks;
@@ -17,6 +15,9 @@ public class EMarkaApplication {
 
 	public static void main(String[] args) {
 		
+		// Create Login Frame
+		gui.entry.LogIn logInFrame = new gui.entry.LogIn();
+	
 		// Create the datasource
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/student_db");
@@ -86,12 +87,11 @@ public class EMarkaApplication {
 		qaComponentPanel.setSubjectRepository(subjectRepository);
 		qaComponentPanel.refreshSubjectComboBox();
 		// Wire the repository that the component management needs
-				
-		
 		
 		// Create Main Frame
 		FrameMain mainFrame = new FrameMain();
 		// Wire the components that main frame needs
+		mainFrame.setLoginFrame(logInFrame);
 		mainFrame.setStudentManagementPanel(studentManagementPanel);
 		mainFrame.setSubjectManagementPanel(subjectManagementPanel);
 		mainFrame.setGradeManagementPanel(gradeManagementPanel);
@@ -99,10 +99,10 @@ public class EMarkaApplication {
 		mainFrame.setPTManagementPanel(ptComponentPanel);
 		mainFrame.setQAManagementPanel(qaComponentPanel);
 		
-		mainFrame.setVisible(true);
+		logInFrame.setVisible(true);
+		logInFrame.setMainFrame(mainFrame);		
 		
 		
-				
 	}
 
 }

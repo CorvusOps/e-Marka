@@ -12,9 +12,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import gui.entry.LogIn;
 
 
 @SuppressWarnings("serial")
@@ -24,11 +27,11 @@ public class FrameMain extends JFrame {
 	
 	private gui.entity.student.PanelStudentManagement studentManagementPanel;
 	private gui.entity.subject.PanelSubjectManagement subjectManagementPanel;
-	//private gui.entity.component.PanelComponentManagement componentManagementPanel;
 	private gui.entity.grade.PanelGradeManagement gradeManagementPanel;
 	private gui.entity.component.PanelComponentWW wwManagementPanel;
 	private gui.entity.component.PanelComponentPT ptManagementPanel;
 	private gui.entity.component.PanelComponentQA qaManagementPanel;
+	private gui.entry.LogIn loginFrame;
 	
 	private JPanel currentShownPanel;
 
@@ -128,12 +131,12 @@ public class FrameMain extends JFrame {
 		jbtnGradesPanel.setBackground(new Color(51, 51, 51));
 		jpnlSidebar.add(jbtnGradesPanel);
 		
-		JLabel lblNewLabel = new JLabel("         Components");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
-		lblNewLabel.setBackground(Color.DARK_GRAY);
-		jpnlSidebar.add(lblNewLabel);
+		JLabel lblComponents = new JLabel("         Components");
+		lblComponents.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComponents.setForeground(Color.WHITE);
+		lblComponents.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+		lblComponents.setBackground(Color.DARK_GRAY);
+		jpnlSidebar.add(lblComponents);
 		
 		JButton jbtnComponentWW = new JButton("Written Works");
 		jbtnComponentWW.addActionListener(new ActionListener() {
@@ -200,6 +203,34 @@ public class FrameMain extends JFrame {
 		btnQuarterlyAssessment.setBorderPainted(false);
 		btnQuarterlyAssessment.setBackground(new Color(51, 51, 51));
 		jpnlSidebar.add(btnQuarterlyAssessment);
+		
+		JLabel lblLogout = new JLabel("            Log-out");
+		lblLogout.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogout.setForeground(Color.WHITE);
+		lblLogout.setFont(new Font("Segoe UI Symbol", Font.BOLD, 16));
+		lblLogout.setBackground(Color.DARK_GRAY);
+		jpnlSidebar.add(lblLogout);
+		
+		JButton btnLogout = new JButton("LOGOUT");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to log-out?", "WARNING!", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+					JOptionPane.showMessageDialog(null, "Thank you for using the e-Marka system!", "LOG-OUT", JOptionPane.INFORMATION_MESSAGE);
+					setVisible(false);
+					loginFrame.setVisible(true);
+				} 
+			}
+		});
+		btnLogout.setMinimumSize(new Dimension(75, 35));
+		btnLogout.setMaximumSize(new Dimension(32767, 35));
+		btnLogout.setHorizontalAlignment(SwingConstants.LEFT);
+		btnLogout.setForeground(Color.WHITE);
+		btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnLogout.setFocusPainted(false);
+		btnLogout.setBorderPainted(false);
+		btnLogout.setBackground(new Color(51, 51, 51));
+		jpnlSidebar.add(btnLogout);
 	}
 	
 	
@@ -227,6 +258,10 @@ public class FrameMain extends JFrame {
 
 	public void setQAManagementPanel(gui.entity.component.PanelComponentQA qaManagementPanel) {
 		this.qaManagementPanel = qaManagementPanel;
+	}
+	
+	public void setLoginFrame(LogIn loginFrame) {
+		this.loginFrame = loginFrame;
 	}
 
 }
