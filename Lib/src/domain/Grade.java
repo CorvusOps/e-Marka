@@ -77,7 +77,18 @@ public class Grade {
 
 	//select all student then left join all grade types 
 	
+	//method for computation
+	/**
+	 * 
+	 */
 	
+	public double getFinalGrade() {
+		
+		
+		
+		
+		return 0;
+	}
 	
 	
 
