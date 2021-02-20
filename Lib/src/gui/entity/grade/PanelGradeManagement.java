@@ -161,7 +161,7 @@ public class PanelGradeManagement extends JPanel {
 	public void setStudentRepository(CRUDStudent studentRepository) {
 		this.studentRepository = studentRepository;
 		// Refresh the student table model immediately.
-		//studentTableModel.refresh();
+		//gradeTableModel.refresh();
 	}
 
 	public void setSubjectRepository(CRUDSubject subjectRepository) {

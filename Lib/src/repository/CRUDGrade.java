@@ -105,37 +105,40 @@ public class CRUDGrade {
 				Connection connection = dataSource.getConnection();
 				// Prepare a placeholder object for an INSERT SQL Statement
 				PreparedStatement updateWWStatement =
-						connection.prepareStatement("UPDATE gradeww" + 
+						connection.prepareStatement("UPDATE gradeww " + 
 								"SET gradeWW = ? " + 
-								"WHERE gradeWW_id = ? ");
+								"WHERE writtenWorks_id = ? AND student_number = ?");
 				PreparedStatement updatePTStatement =
-						connection.prepareStatement("UPDATE gradept" + 
+						connection.prepareStatement("UPDATE gradept " + 
 								"SET gradePT = ? " + 
-								"WHERE gradePT_id = ? ");
-				PreparedStatement updateQAStatement =
-						connection.prepareStatement("UPDATE gradeqa" + 
+								"WHERE performanceTasks_id = ? AND student_number = ?");
+				PreparedStatement updateQAStatement = 
+						connection.prepareStatement("UPDATE gradeqa " + 
 								"SET gradeQA = ? " + 
-								"WHERE gradeQA_id = ? ")) {
+								"WHERE quarterlyAssessment_id = ? AND student_number = ?")) {
 				
 				// Bind each field of the student object into the insert statement object.
 				
 				for(GradeWW gradeWW : grade.getGradeWW()) {
 					updateWWStatement.setInt(1, gradeWW.getGradesWW());
-					updateWWStatement.setInt(2, gradeWW.getGradeWW_id());
+					updateWWStatement.setInt(2, gradeWW.getWrittenWorks_id());
+					updateWWStatement.setString(3, grade.getStudentNumber());
 					updateWWStatement.addBatch();
 				}
 				updateWWStatement.executeBatch();
 				
 				for(GradePT gradePT : grade.getGradePT()) {
 					updatePTStatement.setInt(1, gradePT.getGradesPT());
-					updatePTStatement.setInt(2, gradePT.getGradePT_id());
+					updatePTStatement.setInt(2, gradePT.getPerformanceTasks_id());
+					updatePTStatement.setString(3, grade.getStudentNumber());
 					updatePTStatement.addBatch();
 				}
 				updatePTStatement.executeBatch();
 				
 				for(GradeQA gradeQA : grade.getGradeQA()) {
 					updateQAStatement.setInt(1, gradeQA.getGradesQA());
-					updateQAStatement.setInt(2, gradeQA.getGradeQA_id());
+					updateQAStatement.setInt(2, gradeQA.getQuarterlyAssessment_id());
+					updateQAStatement.setString(3, grade.getStudentNumber());
 					updateQAStatement.addBatch();
 				}
 				updateQAStatement.executeBatch();
