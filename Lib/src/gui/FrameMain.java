@@ -34,12 +34,13 @@ public class FrameMain extends JFrame {
 	private gui.entry.LogIn loginFrame;
 	
 	private JPanel currentShownPanel;
+	private PanelWelcome welcomePanel = new PanelWelcome();
 
 	/**
 	 * Create the frame.
 	 */
 	public FrameMain() {
-		setTitle("E-Record Management System");
+		setTitle("e-Marka | NexGen Academy");
 		setMinimumSize(new Dimension(950, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -56,12 +57,17 @@ public class FrameMain extends JFrame {
 		jpnlContentPane.add(jpnlSidebar, BorderLayout.WEST);
 		jpnlSidebar.setLayout(new BoxLayout(jpnlSidebar, BoxLayout.Y_AXIS));
 		
-		JLabel jlblHeader = new JLabel("<html>Student Record Management System</html>");
+		JLabel jlblHeader = new JLabel("<html> Electronic Grade Record System </html>");
 		jlblHeader.setForeground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(10, 10, 10, 10));
-		jlblHeader.setFont(new Font("Montserrat", Font.BOLD, 13));
+		jlblHeader.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 18));
 		jlblHeader.setAlignmentY(0.0f);
 		jpnlSidebar.add(jlblHeader);
+		
+		if(currentShownPanel != null && currentShownPanel != welcomePanel)
+			remove(currentShownPanel);
+		currentShownPanel = welcomePanel;
+		getContentPane().add(welcomePanel, BorderLayout.CENTER);
 		
 		jpnlSidebar.add(Box.createRigidArea(new Dimension(0, 10)));
 		
@@ -80,7 +86,7 @@ public class FrameMain extends JFrame {
 		jbtnStudentsPanel.setForeground(new Color(255, 255, 255));
 		jbtnStudentsPanel.setBackground(new Color(51, 51, 51));
 		jbtnStudentsPanel.setMinimumSize(new Dimension(75, 35));
-		jbtnStudentsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnStudentsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnStudentsPanel.setHorizontalAlignment(SwingConstants.LEFT);
 		jbtnStudentsPanel.setMaximumSize(new Dimension(32767, 35));
 		jbtnStudentsPanel.setBorderPainted(false);
@@ -103,7 +109,7 @@ public class FrameMain extends JFrame {
 		jbtnSubjectsPanel.setMaximumSize(new Dimension(32767, 35));
 		jbtnSubjectsPanel.setHorizontalAlignment(SwingConstants.LEFT);
 		jbtnSubjectsPanel.setForeground(Color.WHITE);
-		jbtnSubjectsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnSubjectsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnSubjectsPanel.setFocusPainted(false);
 		jbtnSubjectsPanel.setBorderPainted(false);
 		jbtnSubjectsPanel.setBackground(new Color(51, 51, 51));
@@ -125,7 +131,7 @@ public class FrameMain extends JFrame {
 		jbtnGradesPanel.setMaximumSize(new Dimension(32767, 35));
 		jbtnGradesPanel.setHorizontalAlignment(SwingConstants.LEFT);
 		jbtnGradesPanel.setForeground(Color.WHITE);
-		jbtnGradesPanel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnGradesPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnGradesPanel.setFocusPainted(false);
 		jbtnGradesPanel.setBorderPainted(false);
 		jbtnGradesPanel.setBackground(new Color(51, 51, 51));
@@ -154,7 +160,7 @@ public class FrameMain extends JFrame {
 		jbtnComponentWW.setMaximumSize(new Dimension(32767, 35));
 		jbtnComponentWW.setHorizontalAlignment(SwingConstants.LEFT);
 		jbtnComponentWW.setForeground(Color.WHITE);
-		jbtnComponentWW.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		jbtnComponentWW.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnComponentWW.setFocusPainted(false);
 		jbtnComponentWW.setBorderPainted(false);
 		jbtnComponentWW.setBackground(new Color(51, 51, 51));
@@ -176,7 +182,7 @@ public class FrameMain extends JFrame {
 		btnPerformanceTasks.setMaximumSize(new Dimension(32767, 35));
 		btnPerformanceTasks.setHorizontalAlignment(SwingConstants.LEFT);
 		btnPerformanceTasks.setForeground(Color.WHITE);
-		btnPerformanceTasks.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnPerformanceTasks.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnPerformanceTasks.setFocusPainted(false);
 		btnPerformanceTasks.setBorderPainted(false);
 		btnPerformanceTasks.setBackground(new Color(51, 51, 51));
@@ -198,7 +204,7 @@ public class FrameMain extends JFrame {
 		btnQuarterlyAssessment.setMaximumSize(new Dimension(32767, 35));
 		btnQuarterlyAssessment.setHorizontalAlignment(SwingConstants.LEFT);
 		btnQuarterlyAssessment.setForeground(Color.WHITE);
-		btnQuarterlyAssessment.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnQuarterlyAssessment.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnQuarterlyAssessment.setFocusPainted(false);
 		btnQuarterlyAssessment.setBorderPainted(false);
 		btnQuarterlyAssessment.setBackground(new Color(51, 51, 51));
@@ -218,6 +224,7 @@ public class FrameMain extends JFrame {
 				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to log-out?", "WARNING!", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
 					JOptionPane.showMessageDialog(null, "Thank you for using the e-Marka system!", "LOG-OUT", JOptionPane.INFORMATION_MESSAGE);
 					setVisible(false);
+					currentShownPanel = welcomePanel;
 					loginFrame.setVisible(true);
 				} 
 			}
@@ -226,7 +233,7 @@ public class FrameMain extends JFrame {
 		btnLogout.setMaximumSize(new Dimension(32767, 35));
 		btnLogout.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLogout.setForeground(Color.WHITE);
-		btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnLogout.setFocusPainted(false);
 		btnLogout.setBorderPainted(false);
 		btnLogout.setBackground(new Color(51, 51, 51));
