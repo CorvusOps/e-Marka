@@ -1,6 +1,7 @@
 package gui.entity.grade;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -45,7 +46,6 @@ public class DialogViewGrade extends JDialog {
 
 	private JPanel jpnlViewGrade;
 	
-
 	private Map<Integer, JTextField> writtenWorkFields;
 	private Map<Integer, JTextField> performanceTaskFields;
 	private Map<Integer, JTextField> quarterlyAssessmentFields;
@@ -57,9 +57,9 @@ public class DialogViewGrade extends JDialog {
 	 */
 	public DialogViewGrade() {
 		/* This Dialog's Properties */
-		setPreferredSize(new Dimension(500, 300));
-		setMinimumSize(new Dimension(500, 300));
-		setTitle("Update Grade");
+		setPreferredSize(new Dimension(570, 530));
+		setMinimumSize(new Dimension(570, 530));
+		setTitle("VIEW AND UPDATE GRADE");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		/* END OF jtxtfldSection */
@@ -76,15 +76,6 @@ public class DialogViewGrade extends JDialog {
 		gbl_jpnlViewGrade.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
 		gbl_jpnlViewGrade.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		jpnlViewGrade.setLayout(gbl_jpnlViewGrade);
-
-		/*
-		 * JLabel lblFirstName = new JLabel("Name: "); lblFirstName.setFont(new
-		 * Font("Tahoma", Font.BOLD, 12)); GridBagConstraints gbc_lblFirstName = new
-		 * GridBagConstraints(); gbc_lblFirstName.fill = GridBagConstraints.HORIZONTAL;
-		 * gbc_lblFirstName.gridx = 0; gbc_lblFirstName.gridy = 0;
-		 * gbc_lblFirstName.insets = new Insets(10, 0, 0, 0);
-		 * jpnlViewGrade.add(lblFirstName, gbc_lblFirstName); END OF lblFirstName
-		 */
 
 		JPanel jpnlButtons = new JPanel();
 		jpnlButtons.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -142,13 +133,13 @@ public class DialogViewGrade extends JDialog {
 		/* END OF jbtnCancel */
 	}
 
-	public void initialize(Grade grade) {
+	public void initialize(Grade grade, String studentName) {
 		this.boundGrade = grade;
 		
 		jpnlViewGrade.removeAll();
 
-		JLabel lblFirstName = new JLabel("Name: ");
-		lblFirstName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		JLabel lblFirstName = new JLabel("Name: " + studentName);
+		lblFirstName.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblFirstName.gridx = 0;
@@ -158,7 +149,7 @@ public class DialogViewGrade extends JDialog {
 		/* END OF lblFirstName */
 		
 		JLabel lblSubject = new JLabel("Grades in " + gradeManagementFrame.cmbSubject.getSelectedItem());
-		lblSubject.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblSubject.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		GridBagConstraints gbc_lblSubject = new GridBagConstraints();
 		gbc_lblSubject.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblSubject.gridx = 0;
@@ -204,13 +195,25 @@ public class DialogViewGrade extends JDialog {
 		double writtenWorkWeightedGrade = ((double) writtenWorkTotalGrade / writtenWorkComponentsTotal) * 30;
 
 		// UI stuff
-		JLabel jlblWrittenWorkHeader = new JLabel("Written Works");
+		JLabel jlblWrittenWorkHeader = new JLabel("WRITTEN WORKS");
+		jlblWrittenWorkHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		jlblWrittenWorkHeader.setForeground(Color.BLUE);
 		GridBagConstraints gbc_jlblWrittenWorkHeader = new GridBagConstraints();
 		gbc_jlblWrittenWorkHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWrittenWorkHeader.gridx = 0;
 		gbc_jlblWrittenWorkHeader.gridy = 2;
 		gbc_jlblWrittenWorkHeader.insets = new Insets(10, 0, 0, 0);
+		gbc_jlblWrittenWorkHeader.gridwidth  = 3;
 		jpnlViewGrade.add(jlblWrittenWorkHeader, gbc_jlblWrittenWorkHeader);
+		
+		JLabel jlblTotalHeader = new JLabel("Total");
+		jlblTotalHeader.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		GridBagConstraints gbc_jlblTotalHeader = new GridBagConstraints();
+		gbc_jlblTotalHeader.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jlblTotalHeader.gridx = 2;
+		gbc_jlblTotalHeader.gridy = 2;
+		gbc_jlblTotalHeader.insets = new Insets(10, 0, 0, 0);
+		jpnlViewGrade.add(jlblTotalHeader, gbc_jlblTotalHeader);
 
 		int currentRow = 3;
 		Map<Integer, GradeWW> gradeWWMap = new HashMap<>();
@@ -220,6 +223,7 @@ public class DialogViewGrade extends JDialog {
 		writtenWorkFields = new HashMap<>();
 		for (WrittenWorks writtenWork : writtenWorks) {
 			JLabel jlblWrittenWork = new JLabel(writtenWork.getwrittenWorks_title());
+			jlblWrittenWork.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jlblWrittenWork = new GridBagConstraints();
 			gbc_jlblWrittenWork.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jlblWrittenWork.gridx = 0;
@@ -229,14 +233,24 @@ public class DialogViewGrade extends JDialog {
 
 			JTextField jtxtWrittenWorkGrade = new JTextField(
 					"" + gradeWWMap.get(writtenWork.getwrittenWorks_id()).getGradesWW(), 10);
+			jtxtWrittenWorkGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jtxtWrittenWorkGrade = new GridBagConstraints();
 			gbc_jtxtWrittenWorkGrade.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jtxtWrittenWorkGrade.gridx = 1;
 			gbc_jtxtWrittenWorkGrade.gridy = currentRow;
 			gbc_jtxtWrittenWorkGrade.insets = new Insets(10, 10, 0, 10);
 			
+			JLabel jlblWrittenWorkTotal = new JLabel("/ " + writtenWork.getwrittenWorks_total());
+			GridBagConstraints gbc_jlblWrittenWorkTotal = new GridBagConstraints();
+			jlblWrittenWorkTotal.setFont(new Font("Segoe UI", Font.BOLD, 15));
+			gbc_jlblWrittenWorkTotal.fill = GridBagConstraints.HORIZONTAL;
+			gbc_jlblWrittenWorkTotal.gridx = 2;
+			gbc_jlblWrittenWorkTotal.gridy = currentRow;
+			gbc_jlblWrittenWorkTotal.insets = new Insets(10, 10, 0, 10);
+			
 			jpnlViewGrade.add(jtxtWrittenWorkGrade, gbc_jtxtWrittenWorkGrade);
 			writtenWorkFields.put(writtenWork.getwrittenWorks_id(), jtxtWrittenWorkGrade);
+			jpnlViewGrade.add(jlblWrittenWorkTotal, gbc_jlblWrittenWorkTotal);
 
 			currentRow++;
 		}
@@ -255,7 +269,9 @@ public class DialogViewGrade extends JDialog {
 		double performanceTaskWeightedGrade = ((double) performanceTaskTotalGrade / performanceTaskComponentsTotal) * 50;
 
 		// UI Stuff
-		JLabel jlblPerformanceTaskHeader = new JLabel("PerformanceTasks");
+		JLabel jlblPerformanceTaskHeader = new JLabel("PERFORMANCE TASKS");
+		jlblPerformanceTaskHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		jlblPerformanceTaskHeader.setForeground(Color.BLUE);
 		GridBagConstraints gbc_jlblPerformanceTaskHeader = new GridBagConstraints();
 		gbc_jlblPerformanceTaskHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblPerformanceTaskHeader.gridx = 0;
@@ -271,6 +287,7 @@ public class DialogViewGrade extends JDialog {
 		performanceTaskFields = new HashMap<>();
 		for (PerformanceTasks performanceTask : performanceTasks) {
 			JLabel jlblPerformanceTasks = new JLabel(performanceTask.getPerformanceTasks_title());
+			jlblPerformanceTasks.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jlblPerformanceTask = new GridBagConstraints();
 			gbc_jlblPerformanceTask.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jlblPerformanceTask.gridx = 0;
@@ -280,14 +297,24 @@ public class DialogViewGrade extends JDialog {
 
 			JTextField jtxtPerformanceTaskGrade = new JTextField(
 					"" + gradePTMap.get(performanceTask.getPerformanceTasks_id()).getGradesPT(), 10);
+			jtxtPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jtxtPerformanceTaskGrade = new GridBagConstraints();
 			gbc_jtxtPerformanceTaskGrade.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jtxtPerformanceTaskGrade.gridx = 1;
 			gbc_jtxtPerformanceTaskGrade.gridy = currentRow;
 			gbc_jtxtPerformanceTaskGrade.insets = new Insets(10, 10, 0, 10);
 			
+			JLabel jlblPerformanceTasksTotal = new JLabel("/ " + performanceTask.getPerformanceTasks_total());
+			jlblPerformanceTasksTotal.setFont(new Font("Segoe UI", Font.BOLD, 15));
+			GridBagConstraints gbc_jlblPerformanceTasksTotal = new GridBagConstraints();
+			gbc_jlblPerformanceTasksTotal.fill = GridBagConstraints.HORIZONTAL;
+			gbc_jlblPerformanceTasksTotal.gridx = 2;
+			gbc_jlblPerformanceTasksTotal.gridy = currentRow;
+			gbc_jlblPerformanceTasksTotal.insets = new Insets(10, 10, 0, 10);
+			
 			jpnlViewGrade.add(jtxtPerformanceTaskGrade, gbc_jtxtPerformanceTaskGrade);
 			performanceTaskFields.put(performanceTask.getPerformanceTasks_id(), jtxtPerformanceTaskGrade);
+			jpnlViewGrade.add(jlblPerformanceTasksTotal, gbc_jlblPerformanceTasksTotal);
 
 			currentRow++;
 		}
@@ -308,7 +335,9 @@ public class DialogViewGrade extends JDialog {
 				/ quarterlyAssessmentComponentsTotal) * 20;
 
 		// UI Stuff
-		JLabel jlblQuarterlyAssessmentHeader = new JLabel("Quarterly Assessment");
+		JLabel jlblQuarterlyAssessmentHeader = new JLabel("QUARTERLY ASSESSMENT");
+		jlblQuarterlyAssessmentHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		jlblQuarterlyAssessmentHeader.setForeground(Color.BLUE);
 		GridBagConstraints gbc_jlblQuarterlyAssessmentHeader = new GridBagConstraints();
 		gbc_jlblQuarterlyAssessmentHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblQuarterlyAssessmentHeader.gridx = 0;
@@ -324,6 +353,7 @@ public class DialogViewGrade extends JDialog {
 		quarterlyAssessmentFields = new HashMap<>();
 		for (QuarterlyAssessment quarterlyAssessments : quarterlyAssessment) {
 			JLabel jlblQuarterlyAssessment = new JLabel(quarterlyAssessments.getquarterlyAssessment_title());
+			jlblQuarterlyAssessment.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jlblQuarterlyAssessment = new GridBagConstraints();
 			gbc_jlblQuarterlyAssessment.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jlblQuarterlyAssessment.gridx = 0;
@@ -333,13 +363,24 @@ public class DialogViewGrade extends JDialog {
 
 			JTextField jtxtQuarterlyAssessmentGrade = new JTextField(
 					"" + gradeQAMap.get(quarterlyAssessments.getquarterlyAssessment_id()).getGradesQA(), 10);
+			jtxtQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			GridBagConstraints gbc_jtxtQuarterlyAssessmentGrade = new GridBagConstraints();
 			gbc_jtxtQuarterlyAssessmentGrade.fill = GridBagConstraints.HORIZONTAL;
 			gbc_jtxtQuarterlyAssessmentGrade.gridx = 1;
 			gbc_jtxtQuarterlyAssessmentGrade.gridy = currentRow;
 			gbc_jtxtQuarterlyAssessmentGrade.insets = new Insets(10, 10, 0, 10);
+			
+			JLabel jlblQuarterlyAssessmentTotal = new JLabel("/ " + quarterlyAssessments.getquarterlyAssessment_total());
+			jlblQuarterlyAssessmentTotal.setFont(new Font("Segoe UI", Font.BOLD, 15));
+			GridBagConstraints gbc_jlblQuarterlyAssessmentTotal = new GridBagConstraints();
+			gbc_jlblQuarterlyAssessmentTotal.fill = GridBagConstraints.HORIZONTAL;
+			gbc_jlblQuarterlyAssessmentTotal.gridx = 2;
+			gbc_jlblQuarterlyAssessmentTotal.gridy = currentRow;
+			gbc_jlblQuarterlyAssessmentTotal.insets = new Insets(10, 10, 0, 10);
+			
 			jpnlViewGrade.add(jtxtQuarterlyAssessmentGrade, gbc_jtxtQuarterlyAssessmentGrade);
 			quarterlyAssessmentFields.put(quarterlyAssessments.getquarterlyAssessment_id(), jtxtQuarterlyAssessmentGrade);
+			jpnlViewGrade.add(jlblQuarterlyAssessmentTotal, gbc_jlblQuarterlyAssessmentTotal);
 
 			currentRow++;
 		}
@@ -347,7 +388,9 @@ public class DialogViewGrade extends JDialog {
 		// Final Grade
 		double FinalGrade = writtenWorkWeightedGrade + performanceTaskWeightedGrade + quarterlyAssessmentWeightedGrade;
 
-		JLabel jlblWeightedGrade = new JLabel("Weighted Grade ");
+		JLabel jlblWeightedGrade = new JLabel("Weighted Grade per Component ");
+		jlblWeightedGrade.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		jlblWeightedGrade.setForeground(Color.RED);
 		GridBagConstraints gbc_jlblWeightedGrade = new GridBagConstraints();
 		gbc_jlblWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWeightedGrade.gridx = 0;
@@ -357,7 +400,8 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work Weighted Grade ");
+		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work Average (30%) ");
+		jlblWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblWrittenWorkWeightedGrade = new GridBagConstraints();
 		gbc_jlblWrittenWorkWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWrittenWorkWeightedGrade.gridx = 0;
@@ -366,6 +410,8 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jlblWrittenWorkWeightedGrade, gbc_jlblWrittenWorkWeightedGrade);
 
 		JTextField jtxtWrittenWorkWeightedGrade = new JTextField("" + writtenWorkWeightedGrade, 10);
+		jtxtWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtxtWrittenWorkWeightedGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtWrittenWorkWeightedGrade = new GridBagConstraints();
 		gbc_jtxtWrittenWorkWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtWrittenWorkWeightedGrade.gridx = 1;
@@ -377,7 +423,8 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task Weighted Grade ");
+		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task Average (50%) ");
+		jlblPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblPerformanceTaskGrade = new GridBagConstraints();
 		gbc_jlblPerformanceTaskGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblPerformanceTaskGrade.gridx = 0;
@@ -386,6 +433,8 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jlblPerformanceTaskGrade, gbc_jlblPerformanceTaskGrade);
 
 		JTextField jtxtPerformanceTaskGrade = new JTextField("" + performanceTaskWeightedGrade, 10);
+		jtxtPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtxtPerformanceTaskGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtPerformanceTaskGrade = new GridBagConstraints();
 		gbc_jtxtPerformanceTaskGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtPerformanceTaskGrade.gridx = 1;
@@ -395,7 +444,8 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Written Work Weighted Grade ");
+		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Quarterly Assessment Average (20%) ");
+		jlblQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblQuarterlyAssessmentGrade = new GridBagConstraints();
 		gbc_jlblQuarterlyAssessmentGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblQuarterlyAssessmentGrade.gridx = 0;
@@ -404,6 +454,8 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jlblQuarterlyAssessmentGrade, gbc_jlblQuarterlyAssessmentGrade);
 
 		JTextField jtxtQuarterlyAssessmentGrade = new JTextField("" + quarterlyAssessmentWeightedGrade, 10);
+		jtxtQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtxtQuarterlyAssessmentGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtQuarterlyAssessmentGrade = new GridBagConstraints();
 		gbc_jtxtQuarterlyAssessmentGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtQuarterlyAssessmentGrade.gridx = 1;
@@ -413,7 +465,8 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblFinalGrade = new JLabel("Final Grade");
+		JLabel jlblFinalGrade = new JLabel("SUBJECT FINAL GRADE");
+		jlblFinalGrade.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_jlblFinalGrade = new GridBagConstraints();
 		gbc_jlblFinalGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblFinalGrade.gridx = 0;
@@ -422,6 +475,8 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jlblFinalGrade, gbc_jlblFinalGrade);
 
 		JTextField jtxtFinalGrade = new JTextField("" + FinalGrade, 10);
+		jtxtFinalGrade.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		jtxtFinalGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtFinalGrade = new GridBagConstraints();
 		gbc_jtxtFinalGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtFinalGrade.gridx = 1;
@@ -431,9 +486,12 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		final String Remark = FinalGrade > 75.0 ? "Passed" : "Failed";
-
-		JLabel jlblRemark = new JLabel("Remark ");
+		final String Remark = FinalGrade >= 75.0 ? "PASSED" : "FAILED";
+		
+		JLabel jlblRemark = new JLabel("Remarks");
+		jlblRemark.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 16));		
+		jtxtFinalGrade.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		jtxtFinalGrade.setEditable(false);
 		GridBagConstraints gbc_jlblRemark = new GridBagConstraints();
 		gbc_jlblRemark.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblRemark.gridx = 0;
@@ -442,6 +500,14 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jlblRemark, gbc_jlblRemark);
 
 		JTextField jtxtRemark = new JTextField(Remark);
+		jtxtRemark.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		jtxtRemark.setEditable(false);
+		
+		if(FinalGrade >= 75.0)
+			jtxtRemark.setForeground(Color.BLUE);
+		else
+			jtxtRemark.setForeground(Color.RED);
+		
 		GridBagConstraints gbc_jtxtRemark = new GridBagConstraints();
 		gbc_jtxtRemark.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtxtRemark.gridx = 1;
