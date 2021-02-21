@@ -409,7 +409,7 @@ public class DialogViewGrade extends JDialog {
 		gbc_jlblWrittenWorkWeightedGrade.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblWrittenWorkWeightedGrade, gbc_jlblWrittenWorkWeightedGrade);
 
-		JTextField jtxtWrittenWorkWeightedGrade = new JTextField(" " + String.format("%.2f", writtenWorkWeightedGrade), 10);
+		JTextField jtxtWrittenWorkWeightedGrade = new JTextField("" + String.format("%.2f", writtenWorkWeightedGrade), 10);
 		jtxtWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jtxtWrittenWorkWeightedGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtWrittenWorkWeightedGrade = new GridBagConstraints();
