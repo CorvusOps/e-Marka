@@ -57,10 +57,10 @@ public class DialogViewGrade extends JDialog {
 	 */
 	public DialogViewGrade() {
 		/* This Dialog's Properties */
-		setPreferredSize(new Dimension(570, 530));
-		setMinimumSize(new Dimension(570, 530));
+		setPreferredSize(new Dimension(580, 530));
+		setMinimumSize(new Dimension(580, 530));
 		setTitle("VIEW AND UPDATE GRADE");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 470, 300);
 		getContentPane().setLayout(new BorderLayout());
 		/* END OF jtxtfldSection */
 
@@ -192,7 +192,7 @@ public class DialogViewGrade extends JDialog {
 			writtenWorkComponentsTotal += writtenWorkMap.get(gradeWW.getWrittenWorks_id()).getwrittenWorks_total();
 		}
 
-		double writtenWorkWeightedGrade = ((double) writtenWorkTotalGrade / writtenWorkComponentsTotal) * 30;
+		double writtenWorkWeightedGrade = (((double) writtenWorkTotalGrade / writtenWorkComponentsTotal) * 50 + 50) * .30;
 
 		// UI stuff
 		JLabel jlblWrittenWorkHeader = new JLabel("WRITTEN WORKS");
@@ -266,7 +266,7 @@ public class DialogViewGrade extends JDialog {
 			performanceTaskTotalGrade += gradePT.getGradesPT();
 			performanceTaskComponentsTotal += performanceTaskMap.get(gradePT.getPerformanceTasks_id()).getPerformanceTasks_total();
 		}
-		double performanceTaskWeightedGrade = ((double) performanceTaskTotalGrade / performanceTaskComponentsTotal) * 50;
+		double performanceTaskWeightedGrade = (((double) performanceTaskTotalGrade / performanceTaskComponentsTotal) * 50 + 50) * 0.50;
 
 		// UI Stuff
 		JLabel jlblPerformanceTaskHeader = new JLabel("PERFORMANCE TASKS");
@@ -331,8 +331,8 @@ public class DialogViewGrade extends JDialog {
 			quarterlyAssessmentComponentsTotal += quarterlyAssessmentMap.get(gradeQA.getQuarterlyAssessment_id())
 					.getquarterlyAssessment_total();
 		}
-		double quarterlyAssessmentWeightedGrade = ((double) quarterlyAssessmentTotalGrade
-				/ quarterlyAssessmentComponentsTotal) * 20;
+		double quarterlyAssessmentWeightedGrade = (((double) quarterlyAssessmentTotalGrade
+				/ quarterlyAssessmentComponentsTotal) * 50 + 50) * 0.20;
 
 		// UI Stuff
 		JLabel jlblQuarterlyAssessmentHeader = new JLabel("QUARTERLY ASSESSMENT");
@@ -400,7 +400,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work Average (30%) ");
+		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work Weighted Score (30%) ");
 		jlblWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblWrittenWorkWeightedGrade = new GridBagConstraints();
 		gbc_jlblWrittenWorkWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -409,7 +409,7 @@ public class DialogViewGrade extends JDialog {
 		gbc_jlblWrittenWorkWeightedGrade.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblWrittenWorkWeightedGrade, gbc_jlblWrittenWorkWeightedGrade);
 
-		JTextField jtxtWrittenWorkWeightedGrade = new JTextField("" + writtenWorkWeightedGrade, 10);
+		JTextField jtxtWrittenWorkWeightedGrade = new JTextField(" " + String.format("%.2f", writtenWorkWeightedGrade), 10);
 		jtxtWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jtxtWrittenWorkWeightedGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtWrittenWorkWeightedGrade = new GridBagConstraints();
@@ -423,7 +423,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task Average (50%) ");
+		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task Weighted Score (50%) ");
 		jlblPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblPerformanceTaskGrade = new GridBagConstraints();
 		gbc_jlblPerformanceTaskGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -432,7 +432,7 @@ public class DialogViewGrade extends JDialog {
 		gbc_jlblPerformanceTaskGrade.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblPerformanceTaskGrade, gbc_jlblPerformanceTaskGrade);
 
-		JTextField jtxtPerformanceTaskGrade = new JTextField("" + performanceTaskWeightedGrade, 10);
+		JTextField jtxtPerformanceTaskGrade = new JTextField("" + String.format("%.2f", performanceTaskWeightedGrade), 10);
 		jtxtPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jtxtPerformanceTaskGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtPerformanceTaskGrade = new GridBagConstraints();
@@ -444,7 +444,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Quarterly Assessment Average (20%) ");
+		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Quarterly Assessment Weighted Score (20%) ");
 		jlblQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblQuarterlyAssessmentGrade = new GridBagConstraints();
 		gbc_jlblQuarterlyAssessmentGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -453,7 +453,7 @@ public class DialogViewGrade extends JDialog {
 		gbc_jlblQuarterlyAssessmentGrade.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblQuarterlyAssessmentGrade, gbc_jlblQuarterlyAssessmentGrade);
 
-		JTextField jtxtQuarterlyAssessmentGrade = new JTextField("" + quarterlyAssessmentWeightedGrade, 10);
+		JTextField jtxtQuarterlyAssessmentGrade = new JTextField("" + String.format("%.2f", quarterlyAssessmentWeightedGrade), 10);
 		jtxtQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jtxtQuarterlyAssessmentGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtQuarterlyAssessmentGrade = new GridBagConstraints();
@@ -474,7 +474,7 @@ public class DialogViewGrade extends JDialog {
 		gbc_jlblFinalGrade.insets = new Insets(10, 0, 0, 0);
 		jpnlViewGrade.add(jlblFinalGrade, gbc_jlblFinalGrade);
 
-		JTextField jtxtFinalGrade = new JTextField("" + FinalGrade, 10);
+		JTextField jtxtFinalGrade = new JTextField("" + String.format("%.2f", FinalGrade), 10);
 		jtxtFinalGrade.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		jtxtFinalGrade.setEditable(false);
 		GridBagConstraints gbc_jtxtFinalGrade = new GridBagConstraints();
