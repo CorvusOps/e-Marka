@@ -387,7 +387,7 @@ public class DialogViewGrade extends JDialog {
 
 		// Final Grade
 		double FinalGrade = writtenWorkWeightedGrade + performanceTaskWeightedGrade + quarterlyAssessmentWeightedGrade;
-
+		
 		JLabel jlblWeightedGrade = new JLabel("Weighted Grade per Component ");
 		jlblWeightedGrade.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		jlblWeightedGrade.setForeground(Color.RED);
@@ -464,8 +464,14 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.add(jtxtQuarterlyAssessmentGrade, gbc_jtxtQuarterlyAssessmentGrade);
 
 		currentRow++;
+		
+		if(FinalGrade>=50 && FinalGrade<=55)
+			FinalGrade+=10;
+		
+		if(FinalGrade>=100)
+			FinalGrade = 99;
 
-		JLabel jlblFinalGrade = new JLabel("SUBJECT FINAL GRADE");
+		JLabel jlblFinalGrade = new JLabel("FINAL GRADE");
 		jlblFinalGrade.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_jlblFinalGrade = new GridBagConstraints();
 		gbc_jlblFinalGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -520,15 +526,67 @@ public class DialogViewGrade extends JDialog {
 
 		revalidate();
 	}
+	
+	/*
+	public double transmutationGrade (double initialGrade) {
+		
+		double finalGrade = 0;
+		
+		if(initialGrade >= 100)
+			finalGrade = 100;
+		
+		else if (initialGrade <= 99.99 && initialGrade >= 98.00)
+			finalGrade = 98;
+		
+		else if (initialGrade <= 97.99 && initialGrade >= 96.00)
+			finalGrade = 96;
+		
+		else if (initialGrade <= 95.99 && initialGrade >= 93.00)
+			finalGrade = 93;
 
-	/**
-	 * Initialize a method accept a grade object OK: step 1: retrieve the grade of
-	 * student from crudgrade by studentNumber OK: step 2: retrieve components step
-	 * 3: loop the component objects / make jlabel = title and jtext field = actual
-	 * grade step 4: set text / jtextfield at current grade at the component step 6:
-	 * revalidated hierarchy
-	 * 
-	 * 
-	 */
-
+		else if (initialGrade <= 92.99 && initialGrade >= 90.00)
+			finalGrade = 90;
+		
+		else if (initialGrade <= 89.99 && initialGrade >= 87.00)
+			finalGrade = 87;
+		
+		else if (initialGrade <= 86.99 && initialGrade >= 85.00)
+			finalGrade = 85;
+		
+		else if (initialGrade <= 84.99 && initialGrade >= 82.00)
+			finalGrade = 82;
+		
+		else if (initialGrade <= 81.99 && initialGrade >= 79.00)
+			finalGrade = 79;
+		
+		else if (initialGrade <= 78.99 && initialGrade >= 76.00)
+			finalGrade = 77;
+		
+		else if (initialGrade <= 75.99 && initialGrade >= 75.00)
+			finalGrade = 75;
+		
+		else if (initialGrade <= 74.99 && initialGrade >= 71.00)
+			finalGrade = 72;
+		
+		else if (initialGrade <= 70.99 && initialGrade >= 67.00)
+			finalGrade = 70;
+		
+		else if (initialGrade <= 66.99 && initialGrade >= 62.00)
+			finalGrade = 68;
+		
+		else if (initialGrade <= 61.99 && initialGrade >= 58.00)
+			finalGrade = 66;
+		
+		else if (initialGrade <= 57.99 && initialGrade >= 55.00)
+			finalGrade = 64;
+		
+		else if (initialGrade <= 54.99 && initialGrade >= 51.00)
+			finalGrade = 62;
+		
+		else if (initialGrade <= 50)
+			finalGrade = 60;
+		
+		
+		return finalGrade;
+	}*/
 }
