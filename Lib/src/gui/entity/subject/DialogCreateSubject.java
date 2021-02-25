@@ -38,10 +38,10 @@ private final JPanel contentPanel = new JPanel();
 	 */
 	public DialogCreateSubject() {
 		/* This Dialog's Properties */
-		setPreferredSize(new Dimension(500, 300));
-		setMinimumSize(new Dimension(500, 300));
+		setPreferredSize(new Dimension(500, 200));
+		setMinimumSize(new Dimension(500, 200));
 		setTitle("Add Subject");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 105);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -49,12 +49,12 @@ private final JPanel contentPanel = new JPanel();
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		/* END OF jtxtfldSubjectNumber */
 	
 		/* jlblName - name label */
-		JLabel jlblName = new JLabel("Name:");
+		JLabel jlblName = new JLabel("Name of Subject:");
 		jlblName.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		GridBagConstraints gbc_jlblName = new GridBagConstraints();
 		gbc_jlblName.anchor = GridBagConstraints.EAST;

@@ -102,7 +102,7 @@ public class PanelSubjectManagement extends JPanel {
 		/* END OF jpnlButtons */
 		
 		/* jbtnAdd - shows addSubjectDialog when clicked */
-		JButton jbtnAdd = new JButton("Add");
+		JButton jbtnAdd = new JButton("Create New Subject");
 		jbtnAdd.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jbtnAdd.addActionListener(new ActionListener() {
 			@Override
@@ -111,49 +111,6 @@ public class PanelSubjectManagement extends JPanel {
 			}
 		});
 		jpnlButtons.add(jbtnAdd);
-		/* END OF jbtnAdd */
-		
-		/* jbtnUpdate - updates a row in the JTable with a Dialog */
-		JButton jbtnUpdate = new JButton("Update");
-		jbtnUpdate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		jbtnUpdate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int rowIndex = jtblSubject.getSelectedRow();
-				
-				if(rowIndex == -1) {
-					JOptionPane.showMessageDialog(
-							null,
-							"Please select a subject first before updating.",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				// empty
-			}
-		});
-		jpnlButtons.add(jbtnUpdate);
-		/* END OF jbtnUpdate */
-		
-		/* jbtnDelete - deletes a Subject depending on what's selected in the JTable */
-		JButton jbtnDelete = new JButton("Delete");
-		jbtnDelete.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		jbtnDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int rowIndex = jtblSubject.getSelectedRow();
-				
-				if(rowIndex == -1) {
-					JOptionPane.showMessageDialog(
-							null,
-							"Please select a subject first before deleting.",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-			}
-		});
-		jpnlButtons.add(jbtnDelete);
 		/* END OF jbtnDelete */
 		
 		/* jscrlpnMainTable - scrollable container for subject JTable */
