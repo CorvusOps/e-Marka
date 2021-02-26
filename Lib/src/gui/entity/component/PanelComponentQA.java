@@ -59,8 +59,9 @@ public class PanelComponentQA extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("QA Panel");
-		jlblHeader.setBackground(new Color(255, 255, 255));
+		JLabel jlblHeader = new JLabel("List of Quarterly Assessments");
+		jlblHeader.setForeground(new Color(128, 0, 128));
+		jlblHeader.setBackground(new Color(55, 0, 55));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
 		jlblHeader.setAlignmentY(0.0f);
@@ -115,8 +116,8 @@ public class PanelComponentQA extends JPanel {
 		
 		/* jtblStudents - table that shows the Students in a tabular format */
 		jtblQA = new JTable();
-		jtblQA.setRowHeight(20);
-		jtblQA.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtblQA.setRowHeight(25);
+		jtblQA.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		
 		/* studentTableModel - the main TableModel object that jtblStudents uses */
 		qaTableModel = new TemplateQA();

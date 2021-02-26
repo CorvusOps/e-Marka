@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import domain.Subject;
 import repository.CRUDPerformanceTasks;
+import repository.CRUDStudent;
 import repository.CRUDSubject;
 
 @SuppressWarnings("serial")
@@ -31,6 +32,7 @@ public class PanelComponentPT extends JPanel {
 	private JTable jtblPT;
 	protected TemplatePT ptTableModel;
 	
+	protected CRUDStudent studentRepository;
 	protected CRUDPerformanceTasks ptRepository;
 	protected CRUDSubject subjectRepository;
 	protected JComboBox cmbSubject;
@@ -55,8 +57,9 @@ public class PanelComponentPT extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("PT Panel");
-		jlblHeader.setBackground(new Color(255, 255, 255));
+		JLabel jlblHeader = new JLabel("List of Performance Tasks");
+		jlblHeader.setForeground(new Color(128, 0, 128));
+		jlblHeader.setBackground(new Color(55, 0, 55));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
 		jlblHeader.setAlignmentY(0.0f);
@@ -107,8 +110,8 @@ public class PanelComponentPT extends JPanel {
 		
 		/* jtblStudents - table that shows the Students in a tabular format */
 		jtblPT = new JTable();
-		jtblPT.setRowHeight(20);
-		jtblPT.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtblPT.setRowHeight(25);
+		jtblPT.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		
 		/* studentTableModel - the main TableModel object that jtblStudents uses */
 		ptTableModel = new TemplatePT();
@@ -121,7 +124,11 @@ public class PanelComponentPT extends JPanel {
 		jscrlpnMainTable.setViewportView(jtblPT);
 		/* END OF jtblStudents */
 	}
-
+	
+	public void setStudentRepository(CRUDStudent studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+	
 	public void setSubjectRepository(CRUDSubject subjectRepository) {
 		this.subjectRepository = subjectRepository;
 	}
