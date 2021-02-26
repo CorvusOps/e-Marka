@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 
 import gui.FrameMain;
 import repository.CRUDPerformanceTasks;
+import java.awt.Color;
 
 public class LogIn extends JFrame {
 
@@ -34,6 +35,7 @@ public class LogIn extends JFrame {
 	private String authPword;
 	
 	private FrameMain mainFrame;
+	private JLabel lblNexgenAcademyInc;
 
 	/**
 	 * Launch the application.
@@ -55,26 +57,34 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
-		setTitle("LOG-IN ");
+		setTitle("LOG-IN TO E-MARKA");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 460, 310);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{471, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+		
+		lblNexgenAcademyInc = new JLabel("e-Marka | NexGen Academy, Inc. ");
+		lblNexgenAcademyInc.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+		GridBagConstraints gbc_lblNexgenAcademyInc = new GridBagConstraints();
+		gbc_lblNexgenAcademyInc.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNexgenAcademyInc.gridx = 0;
+		gbc_lblNexgenAcademyInc.gridy = 0;
+		contentPane.add(lblNexgenAcademyInc, gbc_lblNexgenAcademyInc);
 		
 		lblMainHeader = new JLabel("You are entering a secured system. Input credentials below to continue.");
 		lblMainHeader.setFont(new Font("Arial Narrow", Font.ITALIC, 16));
 		GridBagConstraints gbc_lblMainHeader = new GridBagConstraints();
 		gbc_lblMainHeader.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMainHeader.gridx = 0;
-		gbc_lblMainHeader.gridy = 0;
+		gbc_lblMainHeader.gridy = 1;
 		contentPane.add(lblMainHeader, gbc_lblMainHeader);
 		
 		JLabel lblUsername = new JLabel("USERNAME");
@@ -82,7 +92,7 @@ public class LogIn extends JFrame {
 		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
 		gbc_lblUsername.insets = new Insets(0, 0, 5, 0);
 		gbc_lblUsername.gridx = 0;
-		gbc_lblUsername.gridy = 1;
+		gbc_lblUsername.gridy = 2;
 		contentPane.add(lblUsername, gbc_lblUsername);
 		
 		txtUsername = new JTextField(50);
@@ -92,7 +102,7 @@ public class LogIn extends JFrame {
 		GridBagConstraints gbc_txtUsername = new GridBagConstraints();
 		gbc_txtUsername.insets = new Insets(0, 0, 5, 0);
 		gbc_txtUsername.gridx = 0;
-		gbc_txtUsername.gridy = 2;
+		gbc_txtUsername.gridy = 3;
 		contentPane.add(txtUsername, gbc_txtUsername);
 		txtUsername.setColumns(10);
 		
@@ -101,7 +111,7 @@ public class LogIn extends JFrame {
 		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 		gbc_lblPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPassword.gridx = 0;
-		gbc_lblPassword.gridy = 3;
+		gbc_lblPassword.gridy = 4;
 		contentPane.add(lblPassword, gbc_lblPassword);
 		
 		txtPassword = new JPasswordField();
@@ -111,7 +121,7 @@ public class LogIn extends JFrame {
 		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
 		gbc_txtPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_txtPassword.gridx = 0;
-		gbc_txtPassword.gridy = 4;
+		gbc_txtPassword.gridy = 5;
 		contentPane.add(txtPassword, gbc_txtPassword);
 		
 		btnLogin = new JButton("Log-in");
@@ -121,7 +131,7 @@ public class LogIn extends JFrame {
 				char[] temp = txtPassword.getPassword();
 				authPword = String.valueOf(temp);  
 				
-				if (authUname.contentEquals("200600059") && authPword.contentEquals("instructor")) {
+				if (authUname.contentEquals("admin") && authPword.contentEquals("admin")) {
 					clearFields();
 					JOptionPane.showMessageDialog(null, "Successful login! You can now access the system.", "Success!", JOptionPane.INFORMATION_MESSAGE);
 					setVisible(false);
@@ -138,7 +148,7 @@ public class LogIn extends JFrame {
 		btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.gridx = 0;
-		gbc_btnLogin.gridy = 5;
+		gbc_btnLogin.gridy = 6;
 		contentPane.add(btnLogin, gbc_btnLogin);
 	}
 

@@ -25,7 +25,7 @@ public class PanelWelcome extends JPanel {
 		gbl_pnlWelcomeMessage.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pnlWelcomeMessage.setLayout(gbl_pnlWelcomeMessage);
 		
-		JLabel lblNewLabel = new JLabel("Welcome to e-Marka!");
+		JLabel lblNewLabel = new JLabel("Welcome Back to e-Marka!");
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 45));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();

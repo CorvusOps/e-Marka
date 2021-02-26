@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import gui.entry.LogIn;
+import java.awt.Component;
 
 
 @SuppressWarnings("serial")
@@ -51,9 +52,9 @@ public class FrameMain extends JFrame {
 		jpnlContentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel jpnlSidebar = new JPanel();
-		jpnlSidebar.setBackground(new Color(51, 51, 51));
-		jpnlSidebar.setPreferredSize(new Dimension(175, 10));
-		jpnlSidebar.setMinimumSize(new Dimension(175, 10));
+		jpnlSidebar.setBackground(new Color(55, 0, 55));
+		jpnlSidebar.setPreferredSize(new Dimension(185, 10));
+		jpnlSidebar.setMinimumSize(new Dimension(185, 10));
 		jpnlContentPane.add(jpnlSidebar, BorderLayout.WEST);
 		jpnlSidebar.setLayout(new BoxLayout(jpnlSidebar, BoxLayout.Y_AXIS));
 		
@@ -68,6 +69,9 @@ public class FrameMain extends JFrame {
 			remove(currentShownPanel);
 		currentShownPanel = welcomePanel;
 		getContentPane().add(welcomePanel, BorderLayout.CENTER);
+		
+		Component rigidArea_1_1 = Box.createRigidArea(new Dimension(0, 10));
+		jpnlSidebar.add(rigidArea_1_1);
 		
 		jpnlSidebar.add(Box.createRigidArea(new Dimension(0, 10)));
 		
@@ -84,8 +88,34 @@ public class FrameMain extends JFrame {
 				repaint();
 			}
 		});
+		
+		JLabel lblName = new JLabel("Welcome, Ms. CRUZ, K.S.");
+		lblName.setMinimumSize(new Dimension(185, 16));
+		lblName.setMaximumSize(new Dimension(185, 16));
+		lblName.setPreferredSize(new Dimension(185, 16));
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setForeground(Color.YELLOW);
+		lblName.setFont(new Font("Arial Narrow", Font.ITALIC, 16));
+		lblName.setBackground(Color.DARK_GRAY);
+		jpnlSidebar.add(lblName);
+		
+		JLabel lblNumber = new JLabel("(200600059)");
+		lblNumber.setPreferredSize(new Dimension(185, 16));
+		lblNumber.setMinimumSize(new Dimension(185, 16));
+		lblNumber.setMaximumSize(new Dimension(185, 16));
+		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumber.setForeground(Color.YELLOW);
+		lblNumber.setFont(new Font("Arial Narrow", Font.BOLD | Font.ITALIC, 16));
+		lblNumber.setBackground(Color.DARK_GRAY);
+		jpnlSidebar.add(lblNumber);
+		
+		Component rigidArea3 = Box.createRigidArea(new Dimension(0, 10));
+		jpnlSidebar.add(rigidArea3);
+		
+		Component rigidArea4 = Box.createRigidArea(new Dimension(0, 10));
+		jpnlSidebar.add(rigidArea4);
 		jbtnStudentsPanel.setForeground(new Color(255, 255, 255));
-		jbtnStudentsPanel.setBackground(new Color(51, 51, 51));
+		jbtnStudentsPanel.setBackground(new Color(55, 0, 55));
 		jbtnStudentsPanel.setMinimumSize(new Dimension(75, 35));
 		jbtnStudentsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnStudentsPanel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -113,7 +143,7 @@ public class FrameMain extends JFrame {
 		jbtnSubjectsPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnSubjectsPanel.setFocusPainted(false);
 		jbtnSubjectsPanel.setBorderPainted(false);
-		jbtnSubjectsPanel.setBackground(new Color(51, 51, 51));
+		jbtnSubjectsPanel.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(jbtnSubjectsPanel);
 		
 		JButton jbtnGradesPanel = new JButton("Grades");
@@ -136,7 +166,7 @@ public class FrameMain extends JFrame {
 		jbtnGradesPanel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnGradesPanel.setFocusPainted(false);
 		jbtnGradesPanel.setBorderPainted(false);
-		jbtnGradesPanel.setBackground(new Color(51, 51, 51));
+		jbtnGradesPanel.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(jbtnGradesPanel);
 		
 		JLabel lblComponents = new JLabel("         Components");
@@ -166,7 +196,7 @@ public class FrameMain extends JFrame {
 		jbtnComponentWW.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		jbtnComponentWW.setFocusPainted(false);
 		jbtnComponentWW.setBorderPainted(false);
-		jbtnComponentWW.setBackground(new Color(51, 51, 51));
+		jbtnComponentWW.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(jbtnComponentWW);
 		
 		JButton btnPerformanceTasks = new JButton("Performance Tasks");
@@ -189,7 +219,7 @@ public class FrameMain extends JFrame {
 		btnPerformanceTasks.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnPerformanceTasks.setFocusPainted(false);
 		btnPerformanceTasks.setBorderPainted(false);
-		btnPerformanceTasks.setBackground(new Color(51, 51, 51));
+		btnPerformanceTasks.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(btnPerformanceTasks);
 		
 		JButton btnQuarterlyAssessment = new JButton("Quarterly Assessment");
@@ -212,7 +242,7 @@ public class FrameMain extends JFrame {
 		btnQuarterlyAssessment.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnQuarterlyAssessment.setFocusPainted(false);
 		btnQuarterlyAssessment.setBorderPainted(false);
-		btnQuarterlyAssessment.setBackground(new Color(51, 51, 51));
+		btnQuarterlyAssessment.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(btnQuarterlyAssessment);
 		
 		JLabel lblLogout = new JLabel("            Log-out");
@@ -226,8 +256,8 @@ public class FrameMain extends JFrame {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to log-out?", "WARNING!", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
-					JOptionPane.showMessageDialog(null, "Thank you for using the e-Marka system!", "LOG-OUT", JOptionPane.INFORMATION_MESSAGE);
+				if(JOptionPane.showConfirmDialog(null, "Are you sure you want to log-out?", "LOG-OUT OF E-MARKA", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION) {
+					JOptionPane.showMessageDialog(null, "Thank you for using the e-Marka system!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 					setVisible(false);
 					currentShownPanel = welcomePanel;
 					loginFrame.setVisible(true);
@@ -241,7 +271,7 @@ public class FrameMain extends JFrame {
 		btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		btnLogout.setFocusPainted(false);
 		btnLogout.setBorderPainted(false);
-		btnLogout.setBackground(new Color(51, 51, 51));
+		btnLogout.setBackground(new Color(55, 0, 55));
 		jpnlSidebar.add(btnLogout);
 	}
 	

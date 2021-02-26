@@ -82,7 +82,8 @@ public class PanelSubjectManagement extends JPanel {
 		/* END OF jpnlHeader */
 		
 		/* jlblHeader - header label */
-		JLabel jlblHeader = new JLabel("Subject Management Panel");
+		JLabel jlblHeader = new JLabel("List of Current Subjects Handled");
+		jlblHeader.setForeground(new Color(128, 0, 128));
 		jlblHeader.setBackground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
@@ -121,8 +122,8 @@ public class PanelSubjectManagement extends JPanel {
 		
 		/* jtblSubject - table that shows the Subject in a tabular format */
 		jtblSubject = new JTable();
-		jtblSubject.setRowHeight(20);
-		jtblSubject.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtblSubject.setRowHeight(25);
+		jtblSubject.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		
 		/* subjectTableModel - the main TableModel object that jtblSubject uses */
 		subjectTableModel = new TemplateSubject();
