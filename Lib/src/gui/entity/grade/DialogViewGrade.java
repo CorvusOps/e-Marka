@@ -139,7 +139,7 @@ public class DialogViewGrade extends JDialog {
 		jpnlViewGrade.removeAll();
 
 		JLabel lblFirstName = new JLabel("Name: " + studentName);
-		lblFirstName.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblFirstName.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblFirstName.gridx = 0;
@@ -197,7 +197,7 @@ public class DialogViewGrade extends JDialog {
 		// UI stuff
 		JLabel jlblWrittenWorkHeader = new JLabel("WRITTEN WORKS");
 		jlblWrittenWorkHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		jlblWrittenWorkHeader.setForeground(Color.BLUE);
+		jlblWrittenWorkHeader.setForeground(new Color(0, 128, 0));
 		GridBagConstraints gbc_jlblWrittenWorkHeader = new GridBagConstraints();
 		gbc_jlblWrittenWorkHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWrittenWorkHeader.gridx = 0;
@@ -271,7 +271,7 @@ public class DialogViewGrade extends JDialog {
 		// UI Stuff
 		JLabel jlblPerformanceTaskHeader = new JLabel("PERFORMANCE TASKS");
 		jlblPerformanceTaskHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		jlblPerformanceTaskHeader.setForeground(Color.BLUE);
+		jlblPerformanceTaskHeader.setForeground(new Color(0, 128, 0));
 		GridBagConstraints gbc_jlblPerformanceTaskHeader = new GridBagConstraints();
 		gbc_jlblPerformanceTaskHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblPerformanceTaskHeader.gridx = 0;
@@ -337,7 +337,7 @@ public class DialogViewGrade extends JDialog {
 		// UI Stuff
 		JLabel jlblQuarterlyAssessmentHeader = new JLabel("QUARTERLY ASSESSMENT");
 		jlblQuarterlyAssessmentHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		jlblQuarterlyAssessmentHeader.setForeground(Color.BLUE);
+		jlblQuarterlyAssessmentHeader.setForeground(new Color(0, 128, 0));
 		GridBagConstraints gbc_jlblQuarterlyAssessmentHeader = new GridBagConstraints();
 		gbc_jlblQuarterlyAssessmentHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblQuarterlyAssessmentHeader.gridx = 0;
@@ -390,7 +390,7 @@ public class DialogViewGrade extends JDialog {
 		
 		JLabel jlblWeightedGrade = new JLabel("Weighted Grade per Component ");
 		jlblWeightedGrade.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		jlblWeightedGrade.setForeground(Color.RED);
+		jlblWeightedGrade.setForeground(new Color(153, 0, 153));
 		GridBagConstraints gbc_jlblWeightedGrade = new GridBagConstraints();
 		gbc_jlblWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jlblWeightedGrade.gridx = 0;
@@ -400,7 +400,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work Weighted Score (30%) ");
+		JLabel jlblWrittenWorkWeightedGrade = new JLabel("Written Work (30%) ");
 		jlblWrittenWorkWeightedGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblWrittenWorkWeightedGrade = new GridBagConstraints();
 		gbc_jlblWrittenWorkWeightedGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -423,7 +423,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task Weighted Score (50%) ");
+		JLabel jlblPerformanceTaskGrade = new JLabel("Performance Task (50%) ");
 		jlblPerformanceTaskGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblPerformanceTaskGrade = new GridBagConstraints();
 		gbc_jlblPerformanceTaskGrade.fill = GridBagConstraints.HORIZONTAL;
@@ -444,7 +444,7 @@ public class DialogViewGrade extends JDialog {
 
 		currentRow++;
 
-		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Quarterly Assessment Weighted Score (20%) ");
+		JLabel jlblQuarterlyAssessmentGrade = new JLabel("Quarterly Assessment (20%) ");
 		jlblQuarterlyAssessmentGrade.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 		GridBagConstraints gbc_jlblQuarterlyAssessmentGrade = new GridBagConstraints();
 		gbc_jlblQuarterlyAssessmentGrade.fill = GridBagConstraints.HORIZONTAL;
