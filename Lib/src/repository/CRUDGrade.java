@@ -44,17 +44,18 @@ public class CRUDGrade {
 	        
 	        try(Connection connection = dataSource.getConnection();
 	            Statement selectStatement = connection.createStatement();
-	            ResultSet resultSet = selectStatement.executeQuery("SELECT student_number, first_name, last_name FROM student LEFT JOIN subject ON subject.id = student.subject_id"
+	            ResultSet resultSet = selectStatement.executeQuery("SELECT student_number, first_name, middle_name, last_name FROM student LEFT JOIN subject ON subject.id = student.subject_id"
 	            		+ " WHERE subject_id = '" + subject.getId() + "'")) {
 	            
 	            while(resultSet.next()) {
 	            	String studentNumber = resultSet.getString(1),
 	            		   studentFirstName = resultSet.getString(2),
-	                       studentLastName = resultSet.getString(3);
+	            		   studentMiddleName = resultSet.getString(3),
+	                       studentLastName = resultSet.getString(4);
 	                
 	                Grade grade = new Grade();
 	                grade.setStudentNumber(studentNumber);
-	                grade.setStudentName(studentFirstName + " " + studentLastName);
+	                grade.setStudentName(studentLastName + ", " + studentFirstName + " " + studentMiddleName);
 	                
 	                grade.setGradeWW(gradeWWDAO.getAllByStudentNumber(studentNumber));
 	                grade.setGradePT(gradePTDAO.getAllByStudentNumber(studentNumber));
@@ -79,13 +80,13 @@ public class CRUDGrade {
 	            Statement selectStatement = connection.createStatement();
 	            ResultSet resultSet = selectStatement.executeQuery("SELECT * FROM student " +
 	            									"WHERE student_number = '" + studentNumber + "'")) {
-	        	// what to get here again ???
 	        	if(resultSet.next()) {
 	                String studentFirstName = resultSet.getString(1),
-	                       studentLastName = resultSet.getString(2);
+	                	   studentMiddleName = resultSet.getString(2),
+	                       studentLastName = resultSet.getString(3);
 	                
 	                grade.setStudentNumber(studentNumber);
-	                grade.setStudentName(studentFirstName + " " + studentLastName);
+	                grade.setStudentName(studentLastName + ", " + studentFirstName + " " + studentMiddleName);
 	                
 	                grade.setGradeWW(gradeWWDAO.getAllByStudentNumber(studentNumber));
 	                grade.setGradePT(gradePTDAO.getAllByStudentNumber(studentNumber));

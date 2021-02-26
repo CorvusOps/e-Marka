@@ -72,6 +72,7 @@ public class PanelGradeManagement extends JPanel {
 		
 		/* jlblHeader - header label */
 		JLabel jlblHeader = new JLabel("Grade Management Panel");
+		jlblHeader.setForeground(new Color(128, 0, 128));
 		jlblHeader.setBackground(new Color(255, 255, 255));
 		jlblHeader.setBorder(new EmptyBorder(0, 0, 10, 0));
 		jlblHeader.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 24));
@@ -143,8 +144,8 @@ public class PanelGradeManagement extends JPanel {
 		
 		/* jtblStudents - table that shows the Students in a tabular format */
 		jtblGrades = new JTable();
-		jtblGrades.setRowHeight(20);
-		jtblGrades.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		jtblGrades.setRowHeight(25);
+		jtblGrades.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		
 		/* studentTableModel - the main TableModel object that jtblStudents uses */
 		gradeTableModel = new TemplateGrade();
