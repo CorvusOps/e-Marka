@@ -41,7 +41,7 @@ public class CRUDStudent {
 			// Create a placeholder for an SQL retrieve statement
 			Statement retrieveStatement = connection.createStatement();
 			// Execute the SQL retrieve statement, then grab its results in the ResultSet object
-			ResultSet studentsResultSet = retrieveStatement.executeQuery("SELECT * FROM student")) {
+			ResultSet studentsResultSet = retrieveStatement.executeQuery("SELECT * FROM student ORDER BY last_name ASC")) {
 			
 			// For each record in the ResultSet, map it to a new Student object
 			// then add it to our final list.
@@ -169,7 +169,7 @@ public class CRUDStudent {
 			Connection connection = dataSource.getConnection();
 			Statement retrieveStatement = connection.createStatement();
 			ResultSet studentsResultSet = retrieveStatement.executeQuery("SELECT * FROM student LEFT JOIN subject ON subject.id = student.subject_id" + 
-					" WHERE subject_id = '" + subject.getId() + "'")) {
+					" WHERE subject_id = '" + subject.getId() + "' ORDER BY last_name ASC")) {
 			
 			while(studentsResultSet.next()) {
 				String studentNumber = studentsResultSet.getString(1),

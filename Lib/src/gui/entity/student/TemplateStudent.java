@@ -94,7 +94,7 @@ public class TemplateStudent extends AbstractTableModel {
 			
 		// Second Column - name
 		case 1:
-			return student.getFirstName() + " " + student.getMiddleName() + " " + student.getLastName();
+			return student.getLastName() + ", " + student.getFirstName() + " " + student.getMiddleName();
 			
 		// Third Column - address
 		case 2:
