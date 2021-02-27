@@ -34,6 +34,7 @@ import domain.PerformanceTasks;
 import domain.QuarterlyAssessment;
 import domain.Subject;
 import domain.WrittenWorks;
+import repository.CRUDGrade;
 
 @SuppressWarnings("serial")
 public class DialogViewGrade extends JDialog {
@@ -45,12 +46,16 @@ public class DialogViewGrade extends JDialog {
 	protected PanelGradeManagement gradeManagementFrame;
 
 	private JPanel jpnlViewGrade;
+
+	protected TemplateGrade gradeTableModel;
+	protected CRUDGrade gradeRepository;
 	
 	private Map<Integer, JTextField> writtenWorkFields;
 	private Map<Integer, JTextField> performanceTaskFields;
 	private Map<Integer, JTextField> quarterlyAssessmentFields;
 	
 	private Grade boundGrade;
+	private String boundName;
 
 	/**
 	 * Create the dialog.
@@ -88,6 +93,7 @@ public class DialogViewGrade extends JDialog {
 		jpnlButtons.add(jbtnSave);
 		// When this button is clicked, execute actionPerformed
 		jbtnSave.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Subject subject = (Subject) gradeManagementFrame.cmbSubject.getSelectedItem();
@@ -113,8 +119,11 @@ public class DialogViewGrade extends JDialog {
 				gradeManagementFrame.gradeRepository.update(boundGrade);
 				
 				JOptionPane.showMessageDialog(null, "Successfully updated grade");
-				setVisible(false);
+				//setVisible(false);
 				gradeManagementFrame.gradeTableModel.refreshWithSubject(subject);
+				
+				initialize(boundGrade, boundName);
+
 			}
 		});
 		getRootPane().setDefaultButton(jbtnSave);
@@ -525,6 +534,10 @@ public class DialogViewGrade extends JDialog {
 		// is it like while(quarterlyAssessmentIds.next()) eme eme
 
 		revalidate();
+	}
+
+	public void nameInput(String studentName) {
+		boundName = studentName;
 	}
 	
 	/*
