@@ -113,6 +113,8 @@ public class PanelGradeManagement extends JPanel {
 				String studentName = (String) gradeTableModel.getValueAt(rowIndex, 1);
 				Grade grade = gradeRepository.getByStudentNumberID(studentNumber);
 			
+				viewGradeDialog.gradeManagementFrame.getComponent(rowIndex);
+				viewGradeDialog.nameInput(studentName);
 				viewGradeDialog.initialize(grade, studentName);
 				// give set up  method here ??
 				
