@@ -97,8 +97,7 @@ public class PanelComponentQA extends JPanel {
 		
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
-		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
-		    	  qaTableModel.refreshWithSubject(subject);
+		    	  refreshPanel();
 		      }
 		    };
 		 
@@ -148,5 +147,10 @@ public class PanelComponentQA extends JPanel {
 			subjectArray[i] = subjectList.get(i);
 		
 		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
+	
+	public void refreshPanel() {
+		Subject subject = (Subject) cmbSubject.getSelectedItem();
+  	  	qaTableModel.refreshWithSubject(subject);
 	}
 }

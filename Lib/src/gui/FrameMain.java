@@ -83,6 +83,7 @@ public class FrameMain extends JFrame {
 					remove(currentShownPanel);
 				currentShownPanel = studentManagementPanel;
 				studentManagementPanel.refreshSubjectComboBox();
+				studentManagementPanel.refreshPanel();
 				getContentPane().add(studentManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
@@ -154,6 +155,7 @@ public class FrameMain extends JFrame {
 					remove(currentShownPanel);
 				currentShownPanel = gradeManagementPanel;
 				gradeManagementPanel.refreshSubjectComboBox();
+				gradeManagementPanel.refreshPanel();
 				getContentPane().add(gradeManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
@@ -184,6 +186,7 @@ public class FrameMain extends JFrame {
 					remove(currentShownPanel);
 				currentShownPanel = wwManagementPanel;
 				wwManagementPanel.refreshSubjectComboBox();
+				wwManagementPanel.refreshPanel();
 				getContentPane().add(wwManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
@@ -207,6 +210,7 @@ public class FrameMain extends JFrame {
 					remove(currentShownPanel);
 				currentShownPanel = ptManagementPanel;
 				ptManagementPanel.refreshSubjectComboBox();
+				ptManagementPanel.refreshPanel();
 				getContentPane().add(ptManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();
@@ -230,6 +234,7 @@ public class FrameMain extends JFrame {
 					remove(currentShownPanel);
 				currentShownPanel = qaManagementPanel;
 				qaManagementPanel.refreshSubjectComboBox();
+				qaManagementPanel.refreshPanel();
 				getContentPane().add(qaManagementPanel, BorderLayout.CENTER);
 				revalidate();
 				repaint();

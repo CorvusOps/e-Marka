@@ -105,8 +105,7 @@ public class PanelComponentWW extends JPanel {
 		
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
-		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
-		    	  wwTableModel.refreshWithSubject(subject);
+		    	  refreshPanel();
 		      }
 		    };
 		 
@@ -155,5 +154,10 @@ public class PanelComponentWW extends JPanel {
 			subjectArray[i] = subjectList.get(i);
 		
 		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
+	
+	public void refreshPanel() {
+		Subject subject = (Subject) cmbSubject.getSelectedItem();
+  	  	wwTableModel.refreshWithSubject(subject);
 	}
 }
