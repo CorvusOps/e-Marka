@@ -138,7 +138,7 @@ public class PanelStudentManagement extends JPanel {
 		
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
-		    	  
+		    	  refreshPanel();
 		      }
 		    };
 		 
