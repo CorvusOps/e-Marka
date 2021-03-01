@@ -62,7 +62,7 @@ public class CRUDQuarterlyAssessment {
 		
 		List<QuarterlyAssessment> quarterlyAssessmentList = new ArrayList<>();
 		
-		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM quarterlyassessment LEFT JOIN subject ON subject.id = quarterlyAssessment.quarterlyAssessment_subjectid WHERE id IN (");
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM quarterlyassessment LEFT JOIN subject ON subject.id = quarterlyAssessment.quarterlyAssessment_subjectid WHERE quarterlyAssessment_id IN (");
 		Iterator<Integer> idsIterator = ids.iterator();
 		queryBuilder.append(idsIterator.next());
 		while(idsIterator.hasNext()) {

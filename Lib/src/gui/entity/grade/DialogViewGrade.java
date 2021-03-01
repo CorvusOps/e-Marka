@@ -530,76 +530,10 @@ public class DialogViewGrade extends JDialog {
 		gbc_jtxtRemark.insets = new Insets(10, 10, 0, 10);
 		jpnlViewGrade.add(jtxtRemark, gbc_jtxtRemark);
 
-		// how to call this collectors/ lists stuff to be computed ?
-		// is it like while(quarterlyAssessmentIds.next()) eme eme
-
 		revalidate();
 	}
 
 	public void nameInput(String studentName) {
 		boundName = studentName;
 	}
-	
-	/*
-	public double transmutationGrade (double initialGrade) {
-		
-		double finalGrade = 0;
-		
-		if(initialGrade >= 100)
-			finalGrade = 100;
-		
-		else if (initialGrade <= 99.99 && initialGrade >= 98.00)
-			finalGrade = 98;
-		
-		else if (initialGrade <= 97.99 && initialGrade >= 96.00)
-			finalGrade = 96;
-		
-		else if (initialGrade <= 95.99 && initialGrade >= 93.00)
-			finalGrade = 93;
-
-		else if (initialGrade <= 92.99 && initialGrade >= 90.00)
-			finalGrade = 90;
-		
-		else if (initialGrade <= 89.99 && initialGrade >= 87.00)
-			finalGrade = 87;
-		
-		else if (initialGrade <= 86.99 && initialGrade >= 85.00)
-			finalGrade = 85;
-		
-		else if (initialGrade <= 84.99 && initialGrade >= 82.00)
-			finalGrade = 82;
-		
-		else if (initialGrade <= 81.99 && initialGrade >= 79.00)
-			finalGrade = 79;
-		
-		else if (initialGrade <= 78.99 && initialGrade >= 76.00)
-			finalGrade = 77;
-		
-		else if (initialGrade <= 75.99 && initialGrade >= 75.00)
-			finalGrade = 75;
-		
-		else if (initialGrade <= 74.99 && initialGrade >= 71.00)
-			finalGrade = 72;
-		
-		else if (initialGrade <= 70.99 && initialGrade >= 67.00)
-			finalGrade = 70;
-		
-		else if (initialGrade <= 66.99 && initialGrade >= 62.00)
-			finalGrade = 68;
-		
-		else if (initialGrade <= 61.99 && initialGrade >= 58.00)
-			finalGrade = 66;
-		
-		else if (initialGrade <= 57.99 && initialGrade >= 55.00)
-			finalGrade = 64;
-		
-		else if (initialGrade <= 54.99 && initialGrade >= 51.00)
-			finalGrade = 62;
-		
-		else if (initialGrade <= 50)
-			finalGrade = 60;
-		
-		
-		return finalGrade;
-	}*/
 }

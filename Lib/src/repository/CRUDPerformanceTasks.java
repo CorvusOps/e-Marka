@@ -63,7 +63,7 @@ public class CRUDPerformanceTasks {
 		
 		List<PerformanceTasks> performanceTaskList = new ArrayList<>();
 		
-		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM performancetasks LEFT JOIN subject ON subject.id = performanceTasks.performanceTasks_subjectid WHERE id IN (");
+		StringBuilder queryBuilder = new StringBuilder("SELECT * FROM performancetasks LEFT JOIN subject ON subject.id = performanceTasks.performanceTasks_subjectId WHERE performanceTasks_id IN (");
 		Iterator<Integer> idsIterator = ids.iterator();
 		queryBuilder.append(idsIterator.next());
 		while(idsIterator.hasNext()) {
