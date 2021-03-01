@@ -43,7 +43,7 @@ public class PanelGradeManagement extends JPanel {
 	protected CRUDQuarterlyAssessment qaRepository;
 	protected CRUDWrittenWorks wwRepository;
 	
-	protected TemplateGrade gradeTableModel;
+	public TemplateGrade gradeTableModel;
 	protected JComboBox cmbSubject;
 	
 	public PanelGradeManagement() {
@@ -113,7 +113,7 @@ public class PanelGradeManagement extends JPanel {
 				String studentName = (String) gradeTableModel.getValueAt(rowIndex, 1);
 				Grade grade = gradeRepository.getByStudentNumberID(studentNumber);
 			
-				viewGradeDialog.gradeManagementFrame.getComponent(rowIndex);
+				// viewGradeDialog.gradeManagementFrame.getComponent(rowIndex);
 				viewGradeDialog.nameInput(studentName);
 				viewGradeDialog.initialize(grade, studentName);
 				// give set up  method here ??
@@ -131,8 +131,7 @@ public class PanelGradeManagement extends JPanel {
 		
 		ItemListener itemListener = new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
-		    	  Subject subject = (Subject) cmbSubject.getSelectedItem();
-		    	  gradeTableModel.refreshWithSubject(subject);
+		    	  refreshPanel();
 		      }
 		    };
 		    
@@ -197,6 +196,11 @@ public class PanelGradeManagement extends JPanel {
 			subjectArray[i] = subjectList.get(i);
 		
 		cmbSubject.setModel(new DefaultComboBoxModel<Subject>(subjectArray));
+	}
+	
+	public void refreshPanel() {
+  	  Subject subject = (Subject) cmbSubject.getSelectedItem();
+  	  gradeTableModel.refreshWithSubject(subject);
 	}
 	
 }
