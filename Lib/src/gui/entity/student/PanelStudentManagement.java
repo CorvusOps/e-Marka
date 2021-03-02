@@ -119,7 +119,7 @@ public class PanelStudentManagement extends JPanel {
 		/* END OF jpnlButtons */
 		
 		/* jbtnAdd - shows addStudentDialog when clicked */
-		JButton jbtnAdd = new JButton("Add");
+		JButton jbtnAdd = new JButton("Add Student");
 		jbtnAdd.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jbtnAdd.addActionListener(new ActionListener() {
 			@Override
@@ -145,7 +145,7 @@ public class PanelStudentManagement extends JPanel {
 		cmbSubject.addItemListener(itemListener);
 		
 		/* jbtnUpdate - updates a row in the JTable with a Dialog */
-		JButton jbtnUpdate = new JButton("Update");
+		JButton jbtnUpdate = new JButton("Update Info");
 		jbtnUpdate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		jbtnUpdate.addActionListener(new ActionListener() {
 			@Override
@@ -169,33 +169,6 @@ public class PanelStudentManagement extends JPanel {
 			}
 		});
 		jpnlButtons.add(jbtnUpdate);
-		/* END OF jbtnUpdate */
-		
-		/* jbtnDelete - deletes a Student depending on what's selected in the JTable */
-		JButton jbtnDelete = new JButton("Delete");
-		jbtnDelete.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		jbtnDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int rowIndex = jtblStudents.getSelectedRow();
-				
-				if(rowIndex == -1) {
-					JOptionPane.showMessageDialog(
-							null,
-							"Please select a student first before deleting.",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-
-				if(JOptionPane.showConfirmDialog(null, "Are you sure?") == JOptionPane.YES_OPTION) {
-					String studentNumber = (String) studentTableModel.getValueAt(rowIndex, 0);
-					studentRepository.deleteByStudentNumber(studentNumber);
-					studentTableModel.refresh();
-				} 
-			}
-		});
-		jpnlButtons.add(jbtnDelete);
 		/* END OF jbtnDelete */
 		
 		/* jscrlpnMainTable - scrollable container for student JTable */
