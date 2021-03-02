@@ -117,7 +117,7 @@ private final JPanel contentPanel = new JPanel();
 
 				clearFields();
 				subjectManagementFrame.subjectRepository.save(subject);
-				JOptionPane.showMessageDialog(null, "Successfully saved subject!", "Success!", EXIT_ON_CLOSE);
+				JOptionPane.showMessageDialog(null, "Successfully saved subject!", "Success!", JOptionPane.INFORMATION_MESSAGE);
 				
 
 				subjectManagementFrame.subjectTableModel.refresh();
